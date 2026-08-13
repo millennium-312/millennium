@@ -4,460 +4,429 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Millennium — магазин</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header class="header">
-  <a href="index.html" class="logo">MILLENNIUM</a>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">M</div>
+    <div>
+      <div class="brand-name">millennium</div>
+      <div class="brand-sub">online store</div>
+    </div>
+  </div>
+
   <div class="header-actions">
-    <button class="icon-btn" onclick="openSearch()" aria-label="Поиск">⌕</button>
-    <a href="profile.html" class="icon-btn" aria-label="Профиль">◯</a>
-    <a href="cart.html" class="cart-btn" aria-label="Корзина">
+    <button class="icon-btn" onclick="openSearch()">⌕</button>
+    <button class="icon-btn cart-button" onclick="showPage('cart')">
       🛒
-      <span class="cart-count">0</span>
-    </a>
+      <span id="cartCount">0</span>
+    </button>
+    <button class="profile-mini" onclick="showPage('profile')">M</button>
   </div>
 </header>
-<div class="search-panel" id="searchPanel">
-  <div class="search-inner">
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Поиск товаров..."
-      autocomplete="off"
-    >
-    <button onclick="closeSearch()">Закрыть</button>
-  </div>
-</div>
+
+
 <main>
-  <!-- LOCATION -->
-  <section class="location">
-    <div>
-      <span>Доставка</span>
-      <strong>📍 Выберите город</strong>
-    </div>
-    <button>Изменить</button>
-  </section>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <span class="eyebrow">
-        MILLENNIUM STORE
-      </span>
+
+  <!-- HOME -->
+
+  <section id="home" class="page active">
+
+    <div class="hero">
+      <div class="hero-label">MILLENNIUM / 2026</div>
+
       <h1>
-        Покупки проще.<br>
-        Выбор лучше.
+        Всё нужное.<br>
+        В одном месте.
       </h1>
+
       <p>
-        Товары для жизни, дома и повседневных задач
-        с удобной доставкой и понятным оформлением.
+        Современный онлайн-магазин с быстрым оформлением,
+        удобной оплатой и доставкой.
       </p>
+
       <div class="hero-buttons">
-        <a href="catalog.html" class="primary-btn">
-          Открыть каталог
-        </a>
-        <a href="#offers" class="secondary-btn">
-          Смотреть акции
-        </a>
+        <button class="primary-btn" onclick="showPage('catalog')">
+          Перейти в каталог
+        </button>
+
+        <button class="secondary-btn" onclick="showPage('orders')">
+          Мои заказы
+        </button>
       </div>
     </div>
-  </section>
-  <!-- ADVERTISEMENT -->
-  <section class="advertisement">
-    <div>
-      <span class="eyebrow">СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ</span>
-      <h2>
-        Выгодные цены<br>
-        каждый день
-      </h2>
-      <p>
-        Скидки на популярные товары
-        и специальные предложения.
-      </p>
-      <a href="catalog.html">
-        Смотреть предложения →
-      </a>
+
+
+    <div class="ad-banner">
+      <div>
+        <span class="ad-small">СПЕЦИАЛЬНО ДЛЯ ВАС</span>
+        <h2>Скидки до 40%</h2>
+        <p>Новые предложения уже в каталоге</p>
+      </div>
+
+      <button onclick="showPage('catalog')">Смотреть</button>
     </div>
-    <div class="ad-badge">
-      SALE
-    </div>
-  </section>
-  <!-- CATEGORIES -->
-  <section class="section">
+
+
     <div class="section-head">
       <div>
-        <span class="eyebrow">КАТАЛОГ</span>
-        <h2>Категории</h2>
+        <span class="eyebrow">ПОПУЛЯРНОЕ</span>
+        <h2>Выбор недели</h2>
       </div>
-      <a href="catalog.html">Все →</a>
+
+      <button class="text-btn" onclick="showPage('catalog')">
+        Все товары →
+      </button>
     </div>
+
+    <div class="products" id="homeProducts"></div>
+
+
+    <div class="feature-grid">
+
+      <div class="feature">
+        <span>⚡</span>
+        <h3>Быстрая доставка</h3>
+        <p>Показываем примерную дату получения прямо при заказе.</p>
+      </div>
+
+      <div class="feature">
+        <span>▣</span>
+        <h3>Удобная оплата</h3>
+        <p>Карта, банковские способы и другие варианты оплаты.</p>
+      </div>
+
+      <div class="feature">
+        <span>✓</span>
+        <h3>Безопасная покупка</h3>
+        <p>Информация о заказе сохраняется в вашем профиле.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CATALOG -->
+
+  <section id="catalog" class="page">
+
+    <div class="page-heading">
+      <span class="eyebrow">CATALOG</span>
+      <h1>Каталог</h1>
+      <p>Выбирайте товары и добавляйте их в корзину.</p>
+    </div>
+
+    <div class="search-box">
+      <span>⌕</span>
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Поиск товаров..."
+        oninput="renderCatalog()"
+      >
+    </div>
+
     <div class="categories">
-      <a href="catalog.html?category=electronics" class="category">
-        <span>📱</span>
-        <strong>Электроника</strong>
-        <small>Гаджеты и техника</small>
-      </a>
-      <a href="catalog.html?category=clothes" class="category">
-        <span>👕</span>
-        <strong>Одежда</strong>
-        <small>Для каждого дня</small>
-      </a>
-      <a href="catalog.html?category=home" class="category">
-        <span>🏠</span>
-        <strong>Для дома</strong>
-        <small>Уют и комфорт</small>
-      </a>
-      <a href="catalog.html?category=beauty" class="category">
-        <span>✨</span>
-        <strong>Красота</strong>
-        <small>Уход за собой</small>
-      </a>
-      <a href="catalog.html?category=accessories" class="category">
-        <span>🎒</span>
-        <strong>Аксессуары</strong>
-        <small>Полезные мелочи</small>
-      </a>
-      <a href="catalog.html?category=sport" class="category">
-        <span>⚽</span>
-        <strong>Спорт</strong>
-        <small>Активный образ жизни</small>
-      </a>
+      <button class="category active" onclick="filterCategory('all', this)">
+        Все
+      </button>
+
+      <button class="category" onclick="filterCategory('beauty', this)">
+        Красота
+      </button>
+
+      <button class="category" onclick="filterCategory('clothes', this)">
+        Одежда
+      </button>
+
+      <button class="category" onclick="filterCategory('electronics', this)">
+        Техника
+      </button>
+
+      <button class="category" onclick="filterCategory('home', this)">
+        Дом
+      </button>
     </div>
+
+    <div class="products" id="catalogProducts"></div>
+
   </section>
-  <!-- OFFERS -->
-  <section class="section" id="offers">
-    <div class="section-head">
+
+
+  <!-- CART -->
+
+  <section id="cart" class="page">
+
+    <div class="page-heading cart-heading">
+      <button class="back-btn" onclick="showPage('catalog')">←</button>
+
       <div>
-        <span class="eyebrow">ТОП ТОВАРЫ</span>
-        <h2>Популярное сейчас</h2>
+        <span class="eyebrow">YOUR BAG</span>
+        <h1>Корзина</h1>
       </div>
-      <a href="catalog.html">Все товары →</a>
     </div>
-    <div class="products">
-      <article class="product-card">
-        <div class="product-image product-image-1">
-          🎧
-          <button class="favorite">♡</button>
-          <span class="discount">−25%</span>
-        </div>
-        <div class="product-info">
-          <span class="product-category">
-            Электроника
-          </span>
-          <h3>
-            Беспроводные наушники
-          </h3>
-          <div class="rating">
-            ★ 4.8
-          </div>
-          <div class="price-row">
-            <strong>1 990 ₽</strong>
-            <del>2 650 ₽</del>
-          </div>
-          <button
-            class="buy-button"
-            onclick="addToCart('Беспроводные наушники', 1990)"
-          >
-            В корзину
-          </button>
-        </div>
-      </article>
-      <article class="product-card">
-        <div class="product-image product-image-2">
-          ⌚
-          <button class="favorite">♡</button>
-          <span class="discount">−18%</span>
-        </div>
-        <div class="product-info">
-          <span class="product-category">
-            Электроника
-          </span>
-          <h3>
-            Умные часы
-          </h3>
-          <div class="rating">
-            ★ 4.7
-          </div>
-          <div class="price-row">
-            <strong>2 990 ₽</strong>
-            <del>3 650 ₽</del>
-          </div>
-          <button
-            class="buy-button"
-            onclick="addToCart('Умные часы', 2990)"
-          >
-            В корзину
-          </button>
-        </div>
-      </article>
-      <article class="product-card">
-        <div class="product-image product-image-3">
-          🎒
-          <button class="favorite">♡</button>
-        </div>
-        <div class="product-info">
-          <span class="product-category">
-            Аксессуары
-          </span>
-          <h3>
-            Городской рюкзак
-          </h3>
-          <div class="rating">
-            ★ 4.9
-          </div>
-          <div class="price-row">
-            <strong>2 490 ₽</strong>
-          </div>
-          <button
-            class="buy-button"
-            onclick="addToCart('Городской рюкзак', 2490)"
-          >
-            В корзину
-          </button>
-        </div>
-      </article>
-      <article class="product-card">
-        <div class="product-image product-image-4">
-          💡
-          <button class="favorite">♡</button>
-        </div>
-        <div class="product-info">
-          <span class="product-category">
-            Для дома
-          </span>
-          <h3>
-            Настольная лампа
-          </h3>
-          <div class="rating">
-            ★ 4.6
-          </div>
-          <div class="price-row">
-            <strong>1 490 ₽</strong>
-          </div>
-          <button
-            class="buy-button"
-            onclick="addToCart('Настольная лампа', 1490)"
-          >
-            В корзину
-          </button>
-        </div>
-      </article>
-    </div>
+
+    <div id="cartContent"></div>
+
   </section>
-  <!-- DELIVERY -->
-  <section class="info-grid">
-    <div class="info-card">
-      <span class="info-icon">📦</span>
-      <div>
-        <span class="eyebrow">ДОСТАВКА</span>
-        <h3>
-          Быстро и удобно
-        </h3>
-        <p>
-          Выберите удобный способ
-          получения заказа.
-        </p>
-      </div>
-    </div>
-    <div class="info-card">
-      <span class="info-icon">🕐</span>
-      <div>
-        <span class="eyebrow">СРОК</span>
-        <h3>
-          2–4 дня
-        </h3>
-        <p>
-          Ориентировочная дата
-          будет показана при заказе.
-        </p>
-      </div>
-    </div>
-    <div class="info-card">
-      <span class="info-icon">🔒</span>
-      <div>
-        <span class="eyebrow">ОПЛАТА</span>
-        <h3>
-          Безопасно
-        </h3>
-        <p>
-          Картой или через доступные
-          банковские сервисы.
-        </p>
-      </div>
-    </div>
-  </section>
-  <!-- PAYMENT -->
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">ОПЛАТА</span>
-        <h2>Как можно оплатить</h2>
-      </div>
-    </div>
-    <div class="payment-grid">
-      <div class="payment-card">
-        <span>💳</span>
-        <h3>Банковская карта</h3>
-        <p>
-          Оплата картой при оформлении
-          заказа.
-        </p>
-      </div>
-      <div class="payment-card">
-        <span>🏦</span>
-        <h3>Банк Кыргызстана</h3>
-        <p>
-          Подключим банковские способы
-          оплаты КР.
-        </p>
-      </div>
-      <div class="payment-card">
-        <span>💰</span>
-        <h3>При получении</h3>
-        <p>
-          Если данный способ доступен
-          для выбранной доставки.
-        </p>
-      </div>
-    </div>
-  </section>
+
+
   <!-- CHECKOUT -->
-  <section class="checkout-banner">
-    <div>
-      <span class="eyebrow">
-        ОФОРМЛЕНИЕ
-      </span>
-      <h2>
-        Заказ под контролем
-      </h2>
-      <p>
-        Адрес → доставка → оплата →
-        подтверждение → получение.
-      </p>
+
+  <section id="checkout" class="page">
+
+    <div class="page-heading">
+      <span class="eyebrow">CHECKOUT</span>
+      <h1>Оформление</h1>
+      <p>Проверьте данные перед оплатой.</p>
     </div>
-    <a href="checkout.html" class="primary-btn">
-      Оформить заказ
-    </a>
+
+    <div class="checkout-layout">
+
+      <div>
+
+        <div class="checkout-card">
+          <h2>Получатель</h2>
+
+          <div class="form-grid">
+
+            <label>
+              Имя
+              <input id="customerName" type="text" placeholder="Ваше имя">
+            </label>
+
+            <label>
+              Телефон
+              <input id="customerPhone" type="tel" placeholder="+7 900 000-00-00">
+            </label>
+
+          </div>
+        </div>
+
+
+        <div class="checkout-card">
+
+          <h2>Получение</h2>
+
+          <div class="delivery-option selected">
+            <div>
+              <strong>Пункт выдачи</strong>
+              <p>Кингисепп, Октябрьская, 13</p>
+            </div>
+
+            <span>✓</span>
+          </div>
+
+          <div class="delivery-date">
+            <span>Ожидаемая доставка</span>
+            <strong id="deliveryDate">Послезавтра</strong>
+          </div>
+
+        </div>
+
+
+        <div class="checkout-card">
+
+          <h2>Способ оплаты</h2>
+
+          <div class="payment-options">
+
+            <label class="payment-option">
+              <input type="radio" name="payment" value="card" checked>
+              <span class="payment-icon">▣</span>
+              <span>
+                <strong>Банковская карта</strong>
+                <small>Visa / Mastercard / Мир</small>
+              </span>
+            </label>
+
+            <label class="payment-option">
+              <input type="radio" name="payment" value="bank">
+              <span class="payment-icon">₽</span>
+              <span>
+                <strong>Банковский перевод</strong>
+                <small>Оплата через банк</small>
+              </span>
+            </label>
+
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cash">
+              <span class="payment-icon">₽</span>
+              <span>
+                <strong>При получении</strong>
+                <small>Если доступно для заказа</small>
+              </span>
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <aside class="order-summary">
+
+        <h2>Ваш заказ</h2>
+
+        <div id="checkoutItems"></div>
+
+        <div class="summary-line">
+          <span>Товары</span>
+          <strong id="checkoutSubtotal">0 ₽</strong>
+        </div>
+
+        <div class="summary-line">
+          <span>Скидка</span>
+          <strong class="discount">−0 ₽</strong>
+        </div>
+
+        <div class="summary-line">
+          <span>Доставка</span>
+          <strong class="free">Бесплатно</strong>
+        </div>
+
+        <div class="summary-total">
+          <span>Итого</span>
+          <strong id="checkoutTotal">0 ₽</strong>
+        </div>
+
+        <button class="primary-btn full" onclick="placeOrder()">
+          Оплатить заказ
+        </button>
+
+        <p class="secure">
+          🔒 Безопасное оформление заказа
+        </p>
+
+      </aside>
+
+    </div>
+
   </section>
-  <!-- PROMO -->
-  <section class="promo-card">
-    <div>
-      <span class="eyebrow">
-        ПРОМОКОД
-      </span>
-      <h2>
-        Скидка на первый заказ
-      </h2>
-      <p>
-        Используйте код при оформлении.
-      </p>
+
+
+  <!-- ORDERS -->
+
+  <section id="orders" class="page">
+
+    <div class="page-heading">
+      <span class="eyebrow">ORDERS</span>
+      <h1>Заказы</h1>
+      <p>История ваших покупок.</p>
     </div>
-    <div class="promo-code">
-      MILLENNIUM
-    </div>
+
+    <div id="ordersContent"></div>
+
   </section>
-  <!-- SUPPORT -->
-  <section class="support">
-    <div>
-      <span class="eyebrow">
-        ПОДДЕРЖКА
-      </span>
-      <h2>
-        Нужна помощь?
-      </h2>
-      <p>
-        Поможем с заказом, оплатой,
-        доставкой и возвратом.
-      </p>
+
+
+  <!-- PROFILE -->
+
+  <section id="profile" class="page">
+
+    <div class="profile-header">
+
+      <div class="avatar-big">M</div>
+
+      <div>
+        <span class="eyebrow">ACCOUNT</span>
+        <h1>Мой профиль</h1>
+        <p>Управляйте аккаунтом и заказами.</p>
+      </div>
+
     </div>
-    <a href="support.html" class="secondary-btn">
-      Написать в поддержку
-    </a>
+
+
+    <div class="profile-grid">
+
+      <button class="profile-card" onclick="showPage('orders')">
+        <span>▤</span>
+        <strong>Мои заказы</strong>
+        <small>История покупок</small>
+      </button>
+
+      <button class="profile-card" onclick="showSettings()">
+        <span>⚙</span>
+        <strong>Настройки</strong>
+        <small>Данные аккаунта</small>
+      </button>
+
+      <button class="profile-card">
+        <span>♡</span>
+        <strong>Избранное</strong>
+        <small>Сохранённые товары</small>
+      </button>
+
+      <button class="profile-card">
+        <span>?</span>
+        <strong>Поддержка</strong>
+        <small>Помощь и вопросы</small>
+      </button>
+
+    </div>
+
+
+    <div class="settings-box" id="settingsBox">
+
+      <h2>Настройки</h2>
+
+      <label>
+        Имя
+        <input type="text" placeholder="Ваше имя">
+      </label>
+
+      <label>
+        Телефон
+        <input type="tel" placeholder="+7 900 000-00-00">
+      </label>
+
+      <button class="primary-btn" onclick="saveSettings()">
+        Сохранить
+      </button>
+
+    </div>
+
   </section>
+
 </main>
+
+
 <!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
-  <a href="index.html" class="active">
+
+  <button onclick="showPage('home')" data-page="home">
     <span>⌂</span>
     <small>Главная</small>
-  </a>
-  <a href="catalog.html">
+  </button>
+
+  <button onclick="showPage('catalog')" data-page="catalog">
     <span>⌕</span>
     <small>Каталог</small>
-  </a>
-  <a href="cart.html" class="nav-cart-link">
-    <span>
-      🛒
-      <b class="cart-count">0</b>
-    </span>
+  </button>
+
+  <button onclick="showPage('cart')" data-page="cart">
+    <span>🛒</span>
+    <b id="navCartCount">0</b>
     <small>Корзина</small>
-  </a>
-  <a href="profile.html">
+  </button>
+
+  <button onclick="showPage('profile')" data-page="profile">
     <span>◯</span>
     <small>Профиль</small>
-  </a>
+  </button>
+
 </nav>
-<!-- FOOTER -->
-<footer>
-  <strong>MILLENNIUM</strong>
-  <p>
-    Современный магазин
-    для повседневных покупок.
-  </p>
-  <div class="footer-links">
-    <a href="about.html">О магазине</a>
-    <a href="delivery.html">Доставка</a>
-    <a href="payment.html">Оплата</a>
-    <a href="support.html">Поддержка</a>
-    <a href="settings.html">Настройки</a>
-  </div>
-  <p>
-    © 2026 Millennium
-  </p>
-</footer>
-<script>
-function openSearch() {
-  document
-    .getElementById("searchPanel")
-    .classList.add("active");
-  document
-    .getElementById("searchInput")
-    .focus();
-}
-function closeSearch() {
-  document
-    .getElementById("searchPanel")
-    .classList.remove("active");
-}
-function addToCart(name, price) {
-  let cart =
-    JSON.parse(
-      localStorage.getItem("millenniumCart")
-    ) || [];
-  cart.push({
-    name: name,
-    price: price,
-    quantity: 1
-  });
-  localStorage.setItem(
-    "millenniumCart",
-    JSON.stringify(cart)
-  );
-  updateCartCount();
-  alert("Товар добавлен в корзину");
-}
-function updateCartCount() {
-  const cart =
-    JSON.parse(
-      localStorage.getItem("millenniumCart")
-    ) || [];
-  document
-    .querySelectorAll(".cart-count")
-    .forEach(function(element) {
-      element.textContent = cart.length;
-    });
-}
-updateCartCount();
-</script>
+
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
