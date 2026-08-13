@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Millennium</title>
-<link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
   <style>
     * {
       box-sizing: border-box;
@@ -40,6 +42,8 @@
 
     .cart {
       font-size: 24px;
+      cursor: pointer;
+      padding: 10px;
     }
 
     .hero {
@@ -66,11 +70,13 @@
       display: inline-block;
       padding: 15px 28px;
       border-radius: 14px;
-      background: white;
+      background: #00ff88;
       color: #0b0b0d;
       font-size: 16px;
       font-weight: 700;
       text-decoration: none;
+      cursor: pointer;
+      border: none;
     }
 
     .section {
@@ -94,6 +100,12 @@
       border-radius: 18px;
       padding: 22px 16px;
       min-height: 150px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .card:active {
+      transform: scale(0.97);
     }
 
     .card-icon {
@@ -112,6 +124,62 @@
       line-height: 1.4;
     }
 
+    .page {
+      display: none;
+      padding: 30px 20px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page h2 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .page p {
+      color: #a5a5ad;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .back {
+      display: inline-block;
+      padding: 12px 18px;
+      background: #202024;
+      border: 1px solid #303036;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .product {
+      background: #151518;
+      border: 1px solid #26262b;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+
+    .product h3 {
+      margin-bottom: 8px;
+    }
+
+    .product p {
+      margin-bottom: 15px;
+    }
+
+    .buy {
+      background: #00ff88;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
     footer {
       text-align: center;
       padding: 45px 20px 30px;
@@ -125,57 +193,210 @@
 
   <header>
     <div class="logo">millennium</div>
-    <div class="cart">🛒</div>
+
+    <div class="cart" onclick="openPage('cart')">
+      🛒
+    </div>
   </header>
 
   <main>
 
-    <section class="hero">
-      <h1>Millennium</h1>
+    <!-- ГЛАВНАЯ -->
 
-      <p>
-        Современный сервис покупок.
-        Всё необходимое — в одном месте.
-      </p>
+    <section id="home">
 
-      <a href="#" class="button">
-        Начать покупки
-      </a>
+      <section class="hero">
+        <h1>Millennium</h1>
+
+        <p>
+          Современный сервис покупок.
+          Всё необходимое — в одном месте.
+        </p>
+
+        <button class="button" onclick="openPage('shop')">
+          Начать покупки
+        </button>
+      </section>
+
+      <section class="section">
+
+        <h2 class="section-title">
+          Millennium для вас
+        </h2>
+
+        <div class="cards">
+
+          <div class="card" onclick="openPage('shop')">
+            <div class="card-icon">🛍️</div>
+            <h3>Магазин</h3>
+            <p>Находите нужные товары быстро и удобно.</p>
+          </div>
+
+          <div class="card" onclick="openPage('orders')">
+            <div class="card-icon">📦</div>
+            <h3>Мои заказы</h3>
+            <p>Все ваши покупки в одном месте.</p>
+          </div>
+
+          <div class="card" onclick="openPage('tracking')">
+            <div class="card-icon">🚚</div>
+            <h3>Отслеживание</h3>
+            <p>Следите за доставкой своего заказа.</p>
+          </div>
+
+          <div class="card" onclick="openPage('profile')">
+            <div class="card-icon">👤</div>
+            <h3>Профиль</h3>
+            <p>Управляйте аккаунтом и настройками.</p>
+          </div>
+
+        </div>
+
+      </section>
+
     </section>
 
-    <section class="section">
 
-      <h2 class="section-title">
-        Millennium для вас
-      </h2>
+    <!-- МАГАЗИН -->
 
-      <div class="cards">
+    <section id="shop" class="page">
 
-        <div class="card">
-          <div class="card-icon">🛍️</div>
-          <h3>Магазин</h3>
-          <p>Находите нужные товары быстро и удобно.</p>
-        </div>
+      <h2>🛍️ Магазин</h2>
 
-        <div class="card">
-          <div class="card-icon">📦</div>
-          <h3>Мои заказы</h3>
-          <p>Все ваши покупки в одном месте.</p>
-        </div>
+      <p>
+        Выберите товар, который хотите приобрести.
+      </p>
 
-        <div class="card">
-          <div class="card-icon">🚚</div>
-          <h3>Отслеживание</h3>
-          <p>Следите за доставкой своего заказа.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon">👤</div>
-          <h3>Профиль</h3>
-          <p>Управляйте аккаунтом и настройками.</p>
-        </div>
-
+      <div class="product">
+        <h3>Товар №1</h3>
+        <p>Современный товар Millennium.</p>
+        <button class="buy" onclick="addToCart('Товар №1')">
+          Добавить в корзину
+        </button>
       </div>
+
+      <div class="product">
+        <h3>Товар №2</h3>
+        <p>Качественный товар для вас.</p>
+        <button class="buy" onclick="addToCart('Товар №2')">
+          Добавить в корзину
+        </button>
+      </div>
+
+      <div class="product">
+        <h3>Товар №3</h3>
+        <p>Новый товар Millennium.</p>
+        <button class="buy" onclick="addToCart('Товар №3')">
+          Добавить в корзину
+        </button>
+      </div>
+
+      <button class="back" onclick="goHome()">
+        ← На главную
+      </button>
+
+    </section>
+
+
+    <!-- ЗАКАЗЫ -->
+
+    <section id="orders" class="page">
+
+      <h2>📦 Мои заказы</h2>
+
+      <p>
+        Здесь будут отображаться ваши покупки.
+      </p>
+
+      <div class="product">
+        <h3>Заказов пока нет</h3>
+        <p>
+          Когда вы совершите покупку, она появится здесь.
+        </p>
+      </div>
+
+      <button class="back" onclick="goHome()">
+        ← На главную
+      </button>
+
+    </section>
+
+
+    <!-- ОТСЛЕЖИВАНИЕ -->
+
+    <section id="tracking" class="page">
+
+      <h2>🚚 Отслеживание</h2>
+
+      <p>
+        Введите номер заказа, чтобы проверить доставку.
+      </p>
+
+      <input
+        id="trackInput"
+        type="text"
+        placeholder="Номер заказа"
+        style="
+          width:100%;
+          padding:15px;
+          border-radius:12px;
+          border:1px solid #303036;
+          background:#151518;
+          color:white;
+          margin-bottom:12px;
+        "
+      >
+
+      <button class="buy" onclick="trackOrder()">
+        Отследить
+      </button>
+
+      <p id="trackResult" style="margin-top:20px;"></p>
+
+      <button class="back" onclick="goHome()">
+        ← На главную
+      </button>
+
+    </section>
+
+
+    <!-- ПРОФИЛЬ -->
+
+    <section id="profile" class="page">
+
+      <h2>👤 Профиль</h2>
+
+      <p>
+        Управляйте своим аккаунтом Millennium.
+      </p>
+
+      <div class="product">
+        <h3>Пользователь</h3>
+        <p>
+          Вход в аккаунт пока не подключён.
+        </p>
+      </div>
+
+      <button class="back" onclick="goHome()">
+        ← На главную
+      </button>
+
+    </section>
+
+
+    <!-- КОРЗИНА -->
+
+    <section id="cart" class="page">
+
+      <h2>🛒 Корзина</h2>
+
+      <p id="cartText">
+        Корзина пока пустая.
+      </p>
+
+      <button class="back" onclick="openPage('shop')">
+        ← Вернуться в магазин
+      </button>
 
     </section>
 
@@ -184,6 +405,82 @@
   <footer>
     © 2026 Millennium
   </footer>
+
+
+  <script>
+
+    let cart = [];
+
+    function openPage(page) {
+
+      document.getElementById("home").style.display = "none";
+
+      const pages = document.querySelectorAll(".page");
+
+      pages.forEach(function(item) {
+        item.classList.remove("active");
+      });
+
+      document.getElementById(page).classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    function goHome() {
+
+      document.querySelectorAll(".page").forEach(function(item) {
+        item.classList.remove("active");
+      });
+
+      document.getElementById("home").style.display = "block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    function addToCart(product) {
+
+      cart.push(product);
+
+      document.getElementById("cartText").innerHTML =
+        "В корзине: <b>" + cart.length +
+        "</b><br><br>" +
+        cart.join("<br>");
+
+      alert(product + " добавлен в корзину 🛒");
+    }
+
+
+    function trackOrder() {
+
+      const number =
+        document.getElementById("trackInput").value;
+
+      const result =
+        document.getElementById("trackResult");
+
+      if (number.trim() === "") {
+
+        result.innerText =
+          "Введите номер заказа.";
+
+      } else {
+
+        result.innerText =
+          "Заказ " + number +
+          " принят к отслеживанию. 🚚";
+
+      }
+    }
+
+  </script>
 
 </body>
 </html>
