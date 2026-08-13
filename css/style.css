@@ -32,6 +32,10 @@ header {
 
 .cart {
   font-size: 24px;
+  border: 1px solid #2a2a2a;
+border-radius: 16px;
+padding: 20px;
+margin: 15px 0;
 }
 
 .hero {
