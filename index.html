@@ -3,430 +3,509 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0e11">
   <title>Millennium — магазин</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-mark">M</div>
-    <div>
-      <div class="brand-name">millennium</div>
-      <div class="brand-sub">online store</div>
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="brand" onclick="showPage('home')">
+      <div class="brand-mark">M</div>
+      <div>
+        <strong>MILLENNIUM</strong>
+        <span>магазин</span>
+      </div>
     </div>
-  </div>
 
-  <div class="header-actions">
-    <button class="icon-btn" onclick="openSearch()">⌕</button>
-    <button class="icon-btn cart-button" onclick="showPage('cart')">
-      🛒
-      <span id="cartCount">0</span>
+    <button class="icon-btn" onclick="showPage('search')" aria-label="Поиск">
+      🔍
     </button>
-    <button class="profile-mini" onclick="showPage('profile')">M</button>
-  </div>
-</header>
+  </header>
 
 
-<main>
+  <!-- MAIN -->
+  <main>
 
-  <!-- HOME -->
+    <!-- HOME -->
+    <section id="home" class="page active">
 
-  <section id="home" class="page active">
+      <div class="delivery-line">
+        <span>📍 Кингисепп</span>
+        <span class="delivery-time">Доставка от 0 ₽</span>
+      </div>
 
-    <div class="hero">
-      <div class="hero-label">MILLENNIUM / 2026</div>
+      <div class="search-box" onclick="showPage('search')">
+        <span>⌕</span>
+        <span>Поиск товаров</span>
+      </div>
 
-      <h1>
-        Всё нужное.<br>
-        В одном месте.
-      </h1>
+      <!-- AD -->
+      <div class="banner">
+        <div>
+          <small>СПЕЦИАЛЬНО ДЛЯ ВАС</small>
+          <h2>Новая коллекция</h2>
+          <p>Скидки до 40%</p>
+        </div>
+        <div class="banner-badge">−40%</div>
+      </div>
 
-      <p>
-        Современный онлайн-магазин с быстрым оформлением,
-        удобной оплатой и доставкой.
-      </p>
+      <!-- CATEGORIES -->
+      <div class="section-head">
+        <h2>Категории</h2>
+        <button onclick="showPage('catalog')">Все</button>
+      </div>
 
-      <div class="hero-buttons">
+      <div class="categories">
+        <button onclick="filterCategory('Красота')">
+          <span>✨</span>
+          Красота
+        </button>
+
+        <button onclick="filterCategory('Одежда')">
+          <span>👕</span>
+          Одежда
+        </button>
+
+        <button onclick="filterCategory('Аксессуары')">
+          <span>👜</span>
+          Аксессуары
+        </button>
+
+        <button onclick="filterCategory('Дом')">
+          <span>🏠</span>
+          Для дома
+        </button>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="section-head">
+        <h2>Популярное</h2>
+        <button onclick="showPage('catalog')">Смотреть всё</button>
+      </div>
+
+      <div id="homeProducts" class="product-grid"></div>
+
+      <!-- DELIVERY -->
+      <div class="info-card">
+        <div class="info-icon">🚚</div>
+        <div>
+          <strong>Доставка под контролем</strong>
+          <p>Показываем примерное время получения заказа.</p>
+        </div>
+      </div>
+
+      <!-- AD -->
+      <div class="small-ad">
+        <span>РЕКЛАМА</span>
+        <strong>Выгодные предложения каждый день</strong>
+        <button onclick="showPage('catalog')">Перейти</button>
+      </div>
+
+    </section>
+
+
+    <!-- CATALOG -->
+    <section id="catalog" class="page">
+
+      <div class="page-title">
+        <div>
+          <small>Каталог</small>
+          <h1>Все товары</h1>
+        </div>
+        <button class="filter-btn" onclick="openFilters()">☷</button>
+      </div>
+
+      <div class="catalog-search" onclick="showPage('search')">
+        🔍 <span>Найти товар</span>
+      </div>
+
+      <div id="catalogCategories" class="chips">
+        <button class="chip active" onclick="filterCategory('Все')">Все</button>
+        <button class="chip" onclick="filterCategory('Красота')">Красота</button>
+        <button class="chip" onclick="filterCategory('Одежда')">Одежда</button>
+        <button class="chip" onclick="filterCategory('Аксессуары')">Аксессуары</button>
+        <button class="chip" onclick="filterCategory('Дом')">Дом</button>
+      </div>
+
+      <div id="catalogProducts" class="product-grid"></div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+    <section id="search" class="page">
+
+      <div class="page-title">
+        <div>
+          <small>Поиск</small>
+          <h1>Найти товар</h1>
+        </div>
+      </div>
+
+      <div class="search-input-wrap">
+        <span>🔍</span>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Например: сыворотка"
+          oninput="searchProducts()"
+        >
+      </div>
+
+      <p class="search-hint">Введите название или категорию товара.</p>
+
+      <div id="searchResults" class="product-grid"></div>
+
+    </section>
+
+
+    <!-- CART -->
+    <section id="cart" class="page">
+
+      <div class="page-title">
+        <div>
+          <small>Покупки</small>
+          <h1>Корзина</h1>
+        </div>
+      </div>
+
+      <div id="cartContent"></div>
+
+    </section>
+
+
+    <!-- CHECKOUT -->
+    <section id="checkout" class="page">
+
+      <div class="page-title">
+        <div>
+          <small>Заказ</small>
+          <h1>Оформление</h1>
+        </div>
+      </div>
+
+      <div class="checkout-card">
+        <div class="checkout-number">01</div>
+        <div>
+          <strong>Получатель</strong>
+          <p>Укажите данные для получения заказа</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <input id="nameInput" placeholder="Имя">
+        <input id="phoneInput" placeholder="Номер телефона">
+      </div>
+
+      <div class="checkout-card">
+        <div class="checkout-number">02</div>
+        <div>
+          <strong>Получение</strong>
+          <p>Пункт выдачи — Кингисепп</p>
+        </div>
+      </div>
+
+      <div class="delivery-option active">
+        <div>
+          <strong>Пункт выдачи</strong>
+          <p>Ленинградская область, г. Кингисепп</p>
+          <small>Октябрьская, 13</small>
+        </div>
+        <span>✓</span>
+      </div>
+
+      <div class="delivery-option">
+        <div>
+          <strong>Курьер</strong>
+          <p>Доставка до двери</p>
+        </div>
+        <span>0 ₽</span>
+      </div>
+
+      <div class="checkout-card">
+        <div class="checkout-number">03</div>
+        <div>
+          <strong>Оплата</strong>
+          <p>Выберите удобный способ</p>
+        </div>
+      </div>
+
+      <div class="payment-grid">
+
+        <button class="payment active">
+          <span>💳</span>
+          <strong>Банковская карта</strong>
+          <small>Visa / Mastercard / МИР</small>
+        </button>
+
+        <button class="payment">
+          <span>🏦</span>
+          <strong>Банк КР</strong>
+          <small>Оплата через банк</small>
+        </button>
+
+        <button class="payment">
+          <span>📱</span>
+          <strong>СБП</strong>
+          <small>По QR-коду</small>
+        </button>
+
+        <button class="payment">
+          <span>💰</span>
+          <strong>При получении</strong>
+          <small>Если доступно</small>
+        </button>
+
+      </div>
+
+      <div id="checkoutSummary"></div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+    <section id="profile" class="page">
+
+      <div class="profile-head">
+        <div class="avatar">M</div>
+
+        <div>
+          <small>Ваш аккаунт</small>
+          <h1>Профиль</h1>
+          <p>Войдите, чтобы сохранять покупки</p>
+        </div>
+      </div>
+
+      <div class="profile-stats">
+        <div>
+          <strong id="profileOrders">0</strong>
+          <span>Заказов</span>
+        </div>
+
+        <div>
+          <strong>0 ₽</strong>
+          <span>Бонусы</span>
+        </div>
+
+        <div>
+          <strong>0%</strong>
+          <span>Скидка</span>
+        </div>
+      </div>
+
+      <div class="menu-list">
+
+        <button onclick="showPage('orders')">
+          <span>📦</span>
+          <div>
+            <strong>Мои заказы</strong>
+            <small>История и статус доставки</small>
+          </div>
+          <b>›</b>
+        </button>
+
+        <button onclick="showPage('favorites')">
+          <span>♡</span>
+          <div>
+            <strong>Избранное</strong>
+            <small>Сохранённые товары</small>
+          </div>
+          <b>›</b>
+        </button>
+
+        <button onclick="showPage('settings')">
+          <span>⚙</span>
+          <div>
+            <strong>Настройки</strong>
+            <small>Аккаунт и уведомления</small>
+          </div>
+          <b>›</b>
+        </button>
+
+        <button>
+          <span>💬</span>
+          <div>
+            <strong>Поддержка</strong>
+            <small>Помощь по заказу</small>
+          </div>
+          <b>›</b>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ORDERS -->
+    <section id="orders" class="page">
+
+      <div class="page-title">
+        <div>
+          <small>История</small>
+          <h1>Мои заказы</h1>
+        </div>
+      </div>
+
+      <div id="ordersContent" class="empty-state">
+        <div class="empty-icon">📦</div>
+        <h2>Заказов пока нет</h2>
+        <p>После оформления здесь появится информация о доставке.</p>
         <button class="primary-btn" onclick="showPage('catalog')">
           Перейти в каталог
         </button>
-
-        <button class="secondary-btn" onclick="showPage('orders')">
-          Мои заказы
-        </button>
-      </div>
-    </div>
-
-
-    <div class="ad-banner">
-      <div>
-        <span class="ad-small">СПЕЦИАЛЬНО ДЛЯ ВАС</span>
-        <h2>Скидки до 40%</h2>
-        <p>Новые предложения уже в каталоге</p>
       </div>
 
-      <button onclick="showPage('catalog')">Смотреть</button>
-    </div>
+    </section>
 
 
-    <div class="section-head">
-      <div>
-        <span class="eyebrow">ПОПУЛЯРНОЕ</span>
-        <h2>Выбор недели</h2>
+    <!-- FAVORITES -->
+    <section id="favorites" class="page">
+
+      <div class="page-title">
+        <div>
+          <small>Сохранённое</small>
+          <h1>Избранное</h1>
+        </div>
       </div>
 
-      <button class="text-btn" onclick="showPage('catalog')">
-        Все товары →
-      </button>
-    </div>
+      <div id="favoritesContent" class="product-grid"></div>
 
-    <div class="products" id="homeProducts"></div>
+    </section>
 
 
-    <div class="feature-grid">
+    <!-- SETTINGS -->
+    <section id="settings" class="page">
 
-      <div class="feature">
-        <span>⚡</span>
-        <h3>Быстрая доставка</h3>
-        <p>Показываем примерную дату получения прямо при заказе.</p>
+      <div class="page-title">
+        <div>
+          <small>Аккаунт</small>
+          <h1>Настройки</h1>
+        </div>
       </div>
 
-      <div class="feature">
-        <span>▣</span>
-        <h3>Удобная оплата</h3>
-        <p>Карта, банковские способы и другие варианты оплаты.</p>
+      <div class="settings-list">
+
+        <div class="setting-row">
+          <div>
+            <strong>Уведомления</strong>
+            <small>Новости и статус заказа</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <strong>Уведомления о скидках</strong>
+            <small>Персональные предложения</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox">
+            <span></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <strong>Город доставки</strong>
+            <small>Кингисепп</small>
+          </div>
+          <span>›</span>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <strong>Способ оплаты</strong>
+            <small>Банковская карта</small>
+          </div>
+          <span>›</span>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <strong>О приложении</strong>
+            <small>Millennium v1.0</small>
+          </div>
+          <span>›</span>
+        </div>
+
       </div>
 
-      <div class="feature">
-        <span>✓</span>
-        <h3>Безопасная покупка</h3>
-        <p>Информация о заказе сохраняется в вашем профиле.</p>
-      </div>
+    </section>
 
-    </div>
-
-  </section>
+  </main>
 
 
-  <!-- CATALOG -->
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
 
-  <section id="catalog" class="page">
+    <button onclick="showPage('home')" data-page="home">
+      <span>⌂</span>
+      <small>Главная</small>
+    </button>
 
-    <div class="page-heading">
-      <span class="eyebrow">CATALOG</span>
-      <h1>Каталог</h1>
-      <p>Выбирайте товары и добавляйте их в корзину.</p>
-    </div>
-
-    <div class="search-box">
+    <button onclick="showPage('catalog')" data-page="catalog">
       <span>⌕</span>
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="Поиск товаров..."
-        oninput="renderCatalog()"
-      >
-    </div>
+      <small>Каталог</small>
+    </button>
 
-    <div class="categories">
-      <button class="category active" onclick="filterCategory('all', this)">
-        Все
-      </button>
+    <button onclick="showPage('cart')" data-page="cart" class="cart-nav">
+      <span>🛒</span>
+      <i id="cartCount">0</i>
+      <small>Корзина</small>
+    </button>
 
-      <button class="category" onclick="filterCategory('beauty', this)">
-        Красота
-      </button>
+    <button onclick="showPage('profile')" data-page="profile">
+      <span>♙</span>
+      <small>Профиль</small>
+    </button>
 
-      <button class="category" onclick="filterCategory('clothes', this)">
-        Одежда
-      </button>
-
-      <button class="category" onclick="filterCategory('electronics', this)">
-        Техника
-      </button>
-
-      <button class="category" onclick="filterCategory('home', this)">
-        Дом
-      </button>
-    </div>
-
-    <div class="products" id="catalogProducts"></div>
-
-  </section>
+  </nav>
 
 
-  <!-- CART -->
+  <!-- FILTER MODAL -->
+  <div id="filterModal" class="modal">
+    <div class="modal-content">
 
-  <section id="cart" class="page">
+      <button class="modal-close" onclick="closeFilters()">×</button>
 
-    <div class="page-heading cart-heading">
-      <button class="back-btn" onclick="showPage('catalog')">←</button>
+      <small>Фильтры</small>
+      <h2>Найти подходящее</h2>
 
-      <div>
-        <span class="eyebrow">YOUR BAG</span>
-        <h1>Корзина</h1>
-      </div>
-    </div>
+      <label>Цена</label>
 
-    <div id="cartContent"></div>
-
-  </section>
-
-
-  <!-- CHECKOUT -->
-
-  <section id="checkout" class="page">
-
-    <div class="page-heading">
-      <span class="eyebrow">CHECKOUT</span>
-      <h1>Оформление</h1>
-      <p>Проверьте данные перед оплатой.</p>
-    </div>
-
-    <div class="checkout-layout">
-
-      <div>
-
-        <div class="checkout-card">
-          <h2>Получатель</h2>
-
-          <div class="form-grid">
-
-            <label>
-              Имя
-              <input id="customerName" type="text" placeholder="Ваше имя">
-            </label>
-
-            <label>
-              Телефон
-              <input id="customerPhone" type="tel" placeholder="+7 900 000-00-00">
-            </label>
-
-          </div>
-        </div>
-
-
-        <div class="checkout-card">
-
-          <h2>Получение</h2>
-
-          <div class="delivery-option selected">
-            <div>
-              <strong>Пункт выдачи</strong>
-              <p>Кингисепп, Октябрьская, 13</p>
-            </div>
-
-            <span>✓</span>
-          </div>
-
-          <div class="delivery-date">
-            <span>Ожидаемая доставка</span>
-            <strong id="deliveryDate">Послезавтра</strong>
-          </div>
-
-        </div>
-
-
-        <div class="checkout-card">
-
-          <h2>Способ оплаты</h2>
-
-          <div class="payment-options">
-
-            <label class="payment-option">
-              <input type="radio" name="payment" value="card" checked>
-              <span class="payment-icon">▣</span>
-              <span>
-                <strong>Банковская карта</strong>
-                <small>Visa / Mastercard / Мир</small>
-              </span>
-            </label>
-
-            <label class="payment-option">
-              <input type="radio" name="payment" value="bank">
-              <span class="payment-icon">₽</span>
-              <span>
-                <strong>Банковский перевод</strong>
-                <small>Оплата через банк</small>
-              </span>
-            </label>
-
-            <label class="payment-option">
-              <input type="radio" name="payment" value="cash">
-              <span class="payment-icon">₽</span>
-              <span>
-                <strong>При получении</strong>
-                <small>Если доступно для заказа</small>
-              </span>
-            </label>
-
-          </div>
-
-        </div>
-
+      <div class="price-inputs">
+        <input type="number" placeholder="От">
+        <input type="number" placeholder="До">
       </div>
 
+      <label>Сортировка</label>
 
-      <aside class="order-summary">
+      <select>
+        <option>По популярности</option>
+        <option>Сначала дешевле</option>
+        <option>Сначала дороже</option>
+        <option>По рейтингу</option>
+      </select>
 
-        <h2>Ваш заказ</h2>
-
-        <div id="checkoutItems"></div>
-
-        <div class="summary-line">
-          <span>Товары</span>
-          <strong id="checkoutSubtotal">0 ₽</strong>
-        </div>
-
-        <div class="summary-line">
-          <span>Скидка</span>
-          <strong class="discount">−0 ₽</strong>
-        </div>
-
-        <div class="summary-line">
-          <span>Доставка</span>
-          <strong class="free">Бесплатно</strong>
-        </div>
-
-        <div class="summary-total">
-          <span>Итого</span>
-          <strong id="checkoutTotal">0 ₽</strong>
-        </div>
-
-        <button class="primary-btn full" onclick="placeOrder()">
-          Оплатить заказ
-        </button>
-
-        <p class="secure">
-          🔒 Безопасное оформление заказа
-        </p>
-
-      </aside>
-
-    </div>
-
-  </section>
-
-
-  <!-- ORDERS -->
-
-  <section id="orders" class="page">
-
-    <div class="page-heading">
-      <span class="eyebrow">ORDERS</span>
-      <h1>Заказы</h1>
-      <p>История ваших покупок.</p>
-    </div>
-
-    <div id="ordersContent"></div>
-
-  </section>
-
-
-  <!-- PROFILE -->
-
-  <section id="profile" class="page">
-
-    <div class="profile-header">
-
-      <div class="avatar-big">M</div>
-
-      <div>
-        <span class="eyebrow">ACCOUNT</span>
-        <h1>Мой профиль</h1>
-        <p>Управляйте аккаунтом и заказами.</p>
-      </div>
-
-    </div>
-
-
-    <div class="profile-grid">
-
-      <button class="profile-card" onclick="showPage('orders')">
-        <span>▤</span>
-        <strong>Мои заказы</strong>
-        <small>История покупок</small>
-      </button>
-
-      <button class="profile-card" onclick="showSettings()">
-        <span>⚙</span>
-        <strong>Настройки</strong>
-        <small>Данные аккаунта</small>
-      </button>
-
-      <button class="profile-card">
-        <span>♡</span>
-        <strong>Избранное</strong>
-        <small>Сохранённые товары</small>
-      </button>
-
-      <button class="profile-card">
-        <span>?</span>
-        <strong>Поддержка</strong>
-        <small>Помощь и вопросы</small>
+      <button class="primary-btn" onclick="closeFilters()">
+        Применить
       </button>
 
     </div>
+  </div>
 
 
-    <div class="settings-box" id="settingsBox">
-
-      <h2>Настройки</h2>
-
-      <label>
-        Имя
-        <input type="text" placeholder="Ваше имя">
-      </label>
-
-      <label>
-        Телефон
-        <input type="tel" placeholder="+7 900 000-00-00">
-      </label>
-
-      <button class="primary-btn" onclick="saveSettings()">
-        Сохранить
-      </button>
-
-    </div>
-
-  </section>
-
-</main>
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
 
 
-<!-- BOTTOM NAV -->
-
-<nav class="bottom-nav">
-
-  <button onclick="showPage('home')" data-page="home">
-    <span>⌂</span>
-    <small>Главная</small>
-  </button>
-
-  <button onclick="showPage('catalog')" data-page="catalog">
-    <span>⌕</span>
-    <small>Каталог</small>
-  </button>
-
-  <button onclick="showPage('cart')" data-page="cart">
-    <span>🛒</span>
-    <b id="navCartCount">0</b>
-    <small>Корзина</small>
-  </button>
-
-  <button onclick="showPage('profile')" data-page="profile">
-    <span>◯</span>
-    <small>Профиль</small>
-  </button>
-
-</nav>
-
-
-<div class="toast" id="toast"></div>
-
-<script src="script.js"></script>
+  <script src="app.js"></script>
 
 </body>
 </html>
