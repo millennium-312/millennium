@@ -1,1635 +1,566 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Millennium — магазин</title>
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-:root{
-  --bg:#08090b;
-  --panel:#131519;
-  --panel2:#1a1c21;
-  --line:#292c33;
-  --text:#fff;
-  --muted:#9297a3;
-  --accent:#b66cff;
-  --accent2:#8d3dff;
-  --green:#42d77d;
-  --danger:#ff5570;
-}
-
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  padding-bottom:90px;
-}
-
-button,
-input{
-  font:inherit;
-}
-
-button{
-  border:0;
-  cursor:pointer;
-}
-
-.page{
-  display:none;
-  min-height:calc(100vh - 85px);
-  animation:show .2s ease;
-}
-
-.page.active{
-  display:block;
-}
-
-@keyframes show{
-  from{opacity:0;transform:translateY(5px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* HEADER */
-
-.top{
-  padding:18px 18px 14px;
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(8,9,11,.94);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
-}
-
-.top-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-size:24px;
-  font-weight:900;
-  letter-spacing:-1px;
-}
-
-.logo span{
-  color:var(--accent);
-}
-
-.icon-btn{
-  width:44px;
-  height:44px;
-  border-radius:14px;
-  background:var(--panel2);
-  color:white;
-  border:1px solid var(--line);
-  font-size:20px;
-}
-
-.header-title{
-  font-size:24px;
-  font-weight:800;
-}
-
-/* HOME */
-
-.hero{
-  margin:18px;
-  padding:28px 22px;
-  border-radius:26px;
-  background:linear-gradient(135deg,#17191e,#0e0f12);
-  border:1px solid var(--line);
-}
-
-.hero small{
-  color:var(--accent);
-  font-weight:700;
-}
-
-.hero h1{
-  font-size:38px;
-  line-height:1;
-  margin:10px 0 12px;
-}
-
-.hero p{
-  color:var(--muted);
-  line-height:1.5;
-  margin-bottom:20px;
-}
-
-.primary{
-  width:100%;
-  padding:16px;
-  border-radius:15px;
-  background:var(--accent);
-  color:#fff;
-  font-weight:800;
-  font-size:16px;
-}
-
-.primary:active{
-  transform:scale(.98);
-}
-
-.section{
-  padding:5px 18px 20px;
-}
-
-.section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:15px 0;
-}
-
-.section-head h2{
-  font-size:22px;
-}
-
-.link{
-  color:var(--accent);
-  background:none;
-  font-weight:700;
-}
-
-/* CATEGORIES */
-
-.categories{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding-bottom:5px;
-}
-
-.categories::-webkit-scrollbar{
-  display:none;
-}
-
-.category{
-  flex:none;
-  padding:12px 16px;
-  border-radius:14px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  color:white;
-}
-
-.category.active{
-  background:var(--accent);
-  border-color:var(--accent);
-}
-
-/* PRODUCTS */
-
-.products{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.product{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:19px;
-  overflow:hidden;
-  position:relative;
-}
-
-.product-image{
-  height:165px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:65px;
-  background:linear-gradient(135deg,#242731,#111217);
-}
-
-.product-info{
-  padding:12px;
-}
-
-.product-name{
-  font-size:15px;
-  line-height:1.3;
-  min-height:40px;
-}
-
-.product-price{
-  margin-top:7px;
-  font-size:19px;
-  font-weight:900;
-}
-
-.old-price{
-  color:#70747e;
-  text-decoration:line-through;
-  font-size:12px;
-  margin-left:5px;
-}
-
-.buy{
-  width:100%;
-  margin-top:10px;
-  padding:11px;
-  border-radius:12px;
-  background:var(--panel2);
-  color:var(--accent);
-  font-weight:800;
-  border:1px solid #333640;
-}
-
-/* SEARCH */
-
-.search{
-  margin:16px 18px;
-  position:relative;
-}
-
-.search input{
-  width:100%;
-  background:var(--panel);
-  border:1px solid var(--line);
-  color:white;
-  border-radius:16px;
-  padding:15px 18px 15px 45px;
-  outline:none;
-}
-
-.search span{
-  position:absolute;
-  left:17px;
-  top:12px;
-  font-size:21px;
-}
-
-/* CART */
-
-.cart-item{
-  margin:10px 18px;
-  padding:14px;
-  border-radius:18px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  display:flex;
-  gap:12px;
-}
-
-.cart-image{
-  width:82px;
-  height:82px;
-  border-radius:14px;
-  background:var(--panel2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:38px;
-  flex:none;
-}
-
-.cart-info{
-  flex:1;
-}
-
-.cart-name{
-  font-weight:700;
-  line-height:1.3;
-}
-
-.cart-price{
-  margin-top:6px;
-  font-weight:900;
-}
-
-.quantity{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-top:10px;
-}
-
-.quantity button{
-  width:30px;
-  height:30px;
-  border-radius:9px;
-  background:#292c34;
-  color:white;
-}
-
-.remove{
-  background:none;
-  color:var(--danger);
-  margin-top:9px;
-}
-
-.total{
-  margin:18px;
-  padding:20px;
-  border-radius:20px;
-  background:var(--panel);
-  border:1px solid var(--line);
-}
-
-.total-row{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:10px;
-  color:var(--muted);
-}
-
-.total-main{
-  color:white;
-  font-size:22px;
-  font-weight:900;
-}
-
-/* EMPTY */
-
-.empty{
-  text-align:center;
-  padding:90px 25px;
-}
-
-.empty-icon{
-  font-size:55px;
-  margin-bottom:18px;
-}
-
-.empty h2{
-  font-size:24px;
-}
-
-.empty p{
-  color:var(--muted);
-  margin:10px 0 25px;
-}
-
-/* PROFILE */
-
-.profile-head{
-  margin:18px;
-  padding:28px 20px;
-  border-radius:25px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  text-align:center;
-}
-
-.avatar{
-  width:82px;
-  height:82px;
-  border-radius:50%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--panel2);
-  border:2px solid #393d48;
-  font-size:36px;
-}
-
-.profile-name{
-  font-size:25px;
-  font-weight:900;
-  margin-top:14px;
-}
-
-.profile-phone{
-  color:var(--muted);
-  margin-top:5px;
-}
-
-.profile-menu{
-  margin:18px;
-  border-radius:20px;
-  overflow:hidden;
-  background:var(--panel);
-  border:1px solid var(--line);
-}
-
-.menu-item{
-  width:100%;
-  padding:19px;
-  display:flex;
-  align-items:center;
-  gap:15px;
-  background:none;
-  color:white;
-  border-bottom:1px solid var(--line);
-  text-align:left;
-}
-
-.menu-item:last-child{
-  border-bottom:0;
-}
-
-.menu-icon{
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--panel2);
-  font-size:20px;
-}
-
-.menu-arrow{
-  margin-left:auto;
-  color:var(--muted);
-  font-size:22px;
-}
-
-/* FORM */
-
-.form{
-  padding:18px;
-}
-
-.field{
-  margin-bottom:16px;
-}
-
-.field label{
-  display:block;
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:7px;
-}
-
-.field input{
-  width:100%;
-  padding:15px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:var(--panel);
-  color:white;
-  outline:none;
-}
-
-.field input:focus{
-  border-color:var(--accent);
-}
-
-/* ORDERS */
-
-.order{
-  margin:14px 18px;
-  padding:18px;
-  border-radius:19px;
-  background:var(--panel);
-  border:1px solid var(--line);
-}
-
-.order-top{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:12px;
-}
-
-.status{
-  color:var(--green);
-  font-weight:700;
-}
-
-.order-number{
-  color:var(--muted);
-}
-
-.order-info{
-  color:#d5d7dc;
-  line-height:1.6;
-}
-
-/* BOTTOM */
-
-.bottom{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:78px;
-  background:rgba(17,18,22,.97);
-  backdrop-filter:blur(20px);
-  border-top:1px solid var(--line);
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  z-index:50;
-}
-
-.nav-btn{
-  position:relative;
-  background:none;
-  color:#6f7480;
-  font-size:25px;
-}
-
-.nav-btn span{
-  display:block;
-  font-size:11px;
-  margin-top:4px;
-}
-
-.nav-btn.active{
-  color:var(--accent);
-}
-
-.badge{
-  position:absolute;
-  top:8px;
-  right:25%;
-  min-width:20px;
-  height:20px;
-  border-radius:10px;
-  background:#ff3d5f;
-  color:white;
-  font-size:11px;
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-/* TOAST */
-
-.toast{
-  position:fixed;
-  left:20px;
-  right:20px;
-  bottom:95px;
-  padding:15px;
-  border-radius:15px;
-  background:#24272f;
-  border:1px solid #3b3f4a;
-  text-align:center;
-  z-index:100;
-  transform:translateY(130px);
-  opacity:0;
-  transition:.25s;
-}
-
-.toast.show{
-  transform:translateY(0);
-  opacity:1;
-}
-
-@media(min-width:700px){
-  .products{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .hero,
-  .section,
-  .profile-head,
-  .profile-menu,
-  .form{
-    max-width:900px;
-    margin-left:auto;
-    margin-right:auto;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Millennium — магазин</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
-<!-- ГЛАВНАЯ -->
-<section id="home" class="page active">
-
-  <header class="top">
-    <div class="top-row">
-      <div class="logo">millennium<span>.</span></div>
-      <button class="icon-btn" onclick="go('cart')">🛒</button>
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <header>
+    <div class="logo">
+      MILLENNIUM
     </div>
-  </header>
-
-  <div class="hero">
-    <small>МИР ПОКУПОК MILLENNIUM</small>
-    <h1>Всё нужное<br>в одном месте.</h1>
-    <p>
-      Стильный магазин с удобным каталогом,
-      корзиной и быстрым оформлением заказа.
-    </p>
-    <button class="primary" onclick="go('catalog')">
-      Начать покупки
-    </button>
-  </div>
-
-  <div class="section">
-    <div class="section-head">
-      <h2>Категории</h2>
-      <button class="link" onclick="go('catalog')">Все</button>
-    </div>
-
-    <div class="categories">
-      <button class="category active" onclick="filterCategory('Все')">Все</button>
-      <button class="category" onclick="filterCategory('Красота')">✨ Красота</button>
-      <button class="category" onclick="filterCategory('Одежда')">👕 Одежда</button>
-      <button class="category" onclick="filterCategory('Техника')">📱 Техника</button>
-      <button class="category" onclick="filterCategory('Дом')">🏠 Дом</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-head">
-      <h2>Популярное</h2>
-      <button class="link" onclick="go('catalog')">Смотреть</button>
-    </div>
-
-    <div id="homeProducts" class="products"></div>
-  </div>
-
-</section>
-
-
-<!-- КАТАЛОГ -->
-<section id="catalog" class="page">
-
-  <header class="top">
-    <div class="top-row">
-      <button class="icon-btn" onclick="go('home')">‹</button>
-      <div class="header-title">Каталог</div>
-      <button class="icon-btn" onclick="go('cart')">🛒</button>
-    </div>
-  </header>
-
-  <div class="search">
-    <span>⌕</span>
-    <input id="searchInput" type="text" placeholder="Поиск товаров..." oninput="searchProducts()">
-  </div>
-
-  <div class="section">
-    <div class="categories">
-      <button class="category active" onclick="filterCategory('Все')">Все</button>
-      <button class="category" onclick="filterCategory('Красота')">Красота</button>
-      <button class="category" onclick="filterCategory('Одежда')">Одежда</button>
-      <button class="category" onclick="filterCategory('Техника')">Техника</button>
-      <button class="category" onclick="filterCategory('Дом')">Дом</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <div id="catalogProducts" class="products"></div>
-  </div>
-
-</section>
-
-
-<!-- КОРЗИНА -->
-<section id="cart" class="page">
-
-  <header class="top">
-    <div class="top-row">
-      <button class="icon-btn" onclick="go('home')">‹</button>
-      <div class="header-title">Корзина</div>
-      <div style="width:44px"></div>
-    </div>
-  </header>
-
-  <div id="cartContent"></div>
-
-</section>
-
-
-<!-- ЗАКАЗЫ -->
-<section id="orders" class="page">
-
-  <header class="top">
-    <div class="top-row">
-      <button class="icon-btn" onclick="go('profile')">‹</button>
-      <div class="header-title">Заказы</div>
-      <div style="width:44px"></div>
-    </div>
-  </header>
-
-  <div id="ordersContent"></div>
-
-</section>
-
-
-<!-- ПРОФИЛЬ -->
-<section id="profile" class="page">
-
-  <header class="top">
-    <div class="top-row">
-      <div class="logo">millennium<span>.</span></div>
-      <button class="icon-btn" onclick="go('settings')">⚙️</button>
-    </div>
-  </header>
-
-  <div class="profile-head">
-    <div class="avatar">👤</div>
-    <div id="profileName" class="profile-name">Ваш профиль</div>
-    <div id="profilePhone" class="profile-phone">Добавьте свои данные</div>
-  </div>
-
-  <div class="profile-menu">
-
-    <button class="menu-item" onclick="go('data')">
-      <div class="menu-icon">👤</div>
-      <div>
-        <b>Мои данные</b><br>
-        <small style="color:var(--muted)">ФИО, телефон, email</small>
-      </div>
-      <div class="menu-arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="go('orders')">
-      <div class="menu-icon">📦</div>
-      <div>
-        <b>Мои заказы</b><br>
-        <small style="color:var(--muted)">История покупок</small>
-      </div>
-      <div class="menu-arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="go('favorites')">
-      <div class="menu-icon">❤️</div>
-      <div>
-        <b>Избранное</b><br>
-        <small style="color:var(--muted)">Сохранённые товары</small>
-      </div>
-      <div class="menu-arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="go('settings')">
-      <div class="menu-icon">⚙️</div>
-      <div>
-        <b>Настройки</b><br>
-        <small style="color:var(--muted)">Настройки приложения</small>
-      </div>
-      <div class="menu-arrow">›</div>
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- ДАННЫЕ -->
-<section id="data" class="page">
-
-  <header class="top">
-    <div class="top-row">
-      <button class="icon-btn" onclick="go('profile')">‹</button>
-      <div class="header-title">Мои данные</div>
-      <div style="width:44px"></div>
-    </div>
-  </header>
-
-  <div class="form">
-
-    <div class="field">
-      <label>ФИО</label>
-      <input id="fio" placeholder="Введите ФИО">
-    </div>
-
-    <div class="field">
-      <label>Телефон</label>
-      <input id="phone" type="tel" placeholder="+7 900 000-00-00">
-    </div>
-
-    <div class="field">
-      <label>Email</label>
-      <input id="email" type="email" placeholder="example@mail.ru">
-    </div>
-
-    <div class="field">
-      <label>Адрес доставки</label>
-      <input id="address" placeholder="Город, улица, дом, квартира">
-    </div>
-
-    <button class="primary" onclick="saveProfile()">
-      Сохранить данные
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- НАСТРОЙКИ -->
-<section id="settings" class="page">
-
-  <header class="top">
-    <div class="top-row">
-      <button class="icon-btn" onclick="go('profile')">‹</button>
-      <div class="header-title">Настройки</div>
-      <div style="width:44px"></div>
-    </div>
-  </header>
-
-  <div class="profile-menu">
-
-    <button class="menu-item" onclick="toast('Уведомления включены')">
-      <div class="menu-icon">🔔</div>
-      <div>Уведомления</div>
-      <div class="menu-arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="toast('Язык: русский')">
-      <div class="menu-icon">🌐</div>
-      <div>Язык</div>
-      <div class="menu-arrow">›</div>
-    </button>
-
-    <button class="menu-item" onclick="toast('Тёмная тема включена')">
-      <div class="menu-icon">🌙</div>
-      <div>Тёмная тема</div>
-      <div class="menu-arrow">✓</div>
-    </button>
-
-    <button class="menu-item" onclick="toast('Раздел помощи')">
-      <div class="menu-icon">❓</div>
-      <div>Помощь</div>
-      <div class="menu-arrow">›</div>
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- ИЗБРАННОЕ -->
-<section id="favorites" class="page">
-
-  <header class="top">
-    <div class="top-row">
-      <button class="icon-btn" onclick="go('profile')">‹</button>
-      <div class="header-title">Избранное</div>
-      <div style="width:44px"></div>
-    </div>
-  </header>
-
-  <div id="favoritesContent"></div>
-
-</section>
-
-
-<!-- НИЖНЕЕ МЕНЮ -->
-
-<nav class="bottom">
-
-  <button class="nav-btn active" data-page="home" onclick="go('home')">
-    🏠
-    <span>Главная</span>
-  </button>
-
-  <button class="nav-btn" data-page="catalog" onclick="go('catalog')">
-    🔎
-    <span>Каталог</span>
-  </button>
-
-  <button class="nav-btn" data-page="cart" onclick="go('cart')">
-    🛒
-    <span>Корзина</span>
-    <i id="cartBadge" class="badge">0</i>
-  </button>
-
-  <button class="nav-btn" data-page="profile" onclick="go('profile')">
-    👤
-    <span>Профиль</span>
-  </button>
-
-</nav>
-
-<div id="toast" class="toast"></div>
-
-
-<script>
-
-const products = [
-
-  {
-    id:1,
-    name:"Сыворотка для лица",
-    category:"Красота",
-    price:1647,
-    old:4142,
-    icon:"✨"
-  },
-
-  {
-    id:2,
-    name:"Стильная худи oversize",
-    category:"Одежда",
-    price:3024,
-    old:7000,
-    icon:"👕"
-  },
-
-  {
-    id:3,
-    name:"Беспроводные наушники",
-    category:"Техника",
-    price:2490,
-    old:3990,
-    icon:"🎧"
-  },
-
-  {
-    id:4,
-    name:"Умные часы",
-    category:"Техника",
-    price:4590,
-    old:6990,
-    icon:"⌚"
-  },
-
-  {
-    id:5,
-    name:"Аромат для дома",
-    category:"Дом",
-    price:890,
-    old:1290,
-    icon:"🕯️"
-  },
-
-  {
-    id:6,
-    name:"Кроссовки Millennium",
-    category:"Одежда",
-    price:3890,
-    old:5990,
-    icon:"👟"
-  }
-
-];
-
-let cart = JSON.parse(localStorage.getItem("millenniumCart") || "[]");
-let favorites = JSON.parse(localStorage.getItem("millenniumFavorites") || "[]");
-let orders = JSON.parse(localStorage.getItem("millenniumOrders") || "[]");
-let profile = JSON.parse(localStorage.getItem("millenniumProfile") || "{}");
-let currentCategory = "Все";
-
-
-function money(number){
-  return number.toLocaleString("ru-RU") + " ₽";
-}
-
-
-function go(page){
-
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
-
-  const target = document.getElementById(page);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.remove("active");
-
-    if(btn.dataset.page === page){
-      btn.classList.add("active");
-    }
-  });
-
-  if(page === "cart") renderCart();
-  if(page === "orders") renderOrders();
-  if(page === "profile") renderProfile();
-  if(page === "favorites") renderFavorites();
-  if(page === "data") loadProfile();
-
-  window.scrollTo(0,0);
-}
-
-
-function renderProducts(containerId){
-
-  const container = document.getElementById(containerId);
-
-  if(!container) return;
-
-  const search =
-    document.getElementById("searchInput")?.value.toLowerCase() || "";
-
-  const list = products.filter(p=>{
-
-    const categoryOk =
-      currentCategory === "Все" ||
-      p.category === currentCategory;
-
-    const searchOk =
-      p.name.toLowerCase().includes(search);
-
-    return categoryOk && searchOk;
-
-  });
-
-  if(!list.length){
-
-    container.innerHTML = `
-      <div class="empty" style="grid-column:1/-1">
-        <div class="empty-icon">🔎</div>
-        <h2>Ничего не найдено</h2>
-        <p>Попробуйте изменить поиск</p>
-      </div>
-    `;
-
-    return;
-  }
-
-  container.innerHTML = list.map(p=>`
-
-    <div class="product">
-
-      <div class="product-image">
-        ${p.icon}
-      </div>
-
-      <div class="product-info">
-
-        <div class="product-name">
-          ${p.name}
-        </div>
-
-        <div class="product-price">
-          ${money(p.price)}
-          <span class="old-price">${money(p.old)}</span>
-        </div>
-
-        <button class="buy" onclick="addToCart(${p.id})">
-          В корзину
-        </button>
-
-        <button
-          class="buy"
-          onclick="toggleFavorite(${p.id})"
-          style="margin-top:6px">
-          ${favorites.includes(p.id) ? "❤️ В избранном" : "♡ В избранное"}
-        </button>
-
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
-
-
-function renderHome(){
-  renderProducts("homeProducts");
-}
-
-
-function renderCatalog(){
-  renderProducts("catalogProducts");
-}
-
-
-function addToCart(id){
-
-  const existing = cart.find(item=>item.id === id);
-
-  if(existing){
-    existing.qty++;
-  }else{
-    cart.push({
-      id:id,
-      qty:1
-    });
-  }
-
-  saveCart();
-
-  toast("Товар добавлен в корзину 🛒");
-}
-
-
-function saveCart(){
-
-  localStorage.setItem(
-    "millenniumCart",
-    JSON.stringify(cart)
-  );
-
-  updateBadge();
-}
-
-
-function updateBadge(){
-
-  const count = cart.reduce(
-    (sum,item)=>sum + item.qty,
-    0
-  );
-
-  const badge = document.getElementById("cartBadge");
-
-  badge.textContent = count;
-  badge.style.display = count ? "flex" : "none";
-}
-
-
-function renderCart(){
-
-  const container = document.getElementById("cartContent");
-
-  if(!cart.length){
-
-    container.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">🛒</div>
-        <h2>Корзина пуста</h2>
-        <p>Добавьте товары из каталога</p>
-        <button class="primary" onclick="go('catalog')">
-          Перейти в каталог
-        </button>
-      </div>
-    `;
-
-    return;
-  }
-
-  let total = 0;
-
-  container.innerHTML = cart.map(item=>{
-
-    const p = products.find(x=>x.id === item.id);
-
-    if(!p) return "";
-
-    const sum = p.price * item.qty;
-
-    total += sum;
-
-    return `
-
-      <div class="cart-item">
-
-        <div class="cart-image">
-          ${p.icon}
-        </div>
-
-        <div class="cart-info">
-
-          <div class="cart-name">
-            ${p.name}
-          </div>
-
-          <div class="cart-price">
-            ${money(sum)}
-          </div>
-
-          <div class="quantity">
-
-            <button onclick="changeQty(${p.id},-1)">
-              −
-            </button>
-
-            <b>${item.qty}</b>
-
-            <button onclick="changeQty(${p.id},1)">
-              +
-            </button>
-
-          </div>
-
-          <button
-            class="remove"
-            onclick="removeFromCart(${p.id})">
-            Удалить
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }).join("") + `
-
-    <div class="total">
-
-      <div class="total-row">
-        <span>Товары</span>
-        <span>${money(total)}</span>
-      </div>
-
-      <div class="total-row">
-        <span>Доставка</span>
-        <span style="color:var(--green)">Бесплатно</span>
-      </div>
-
-      <div class="total-row total-main">
-        <span>Итого</span>
-        <span>${money(total)}</span>
-      </div>
-
-      <button class="primary" onclick="checkout()">
-        Оформить заказ
+    <div class="header-actions">
+      <button class="header-button" onclick="openSearch()">
+        🔎
       </button>
-
+      <a href="profile.html" class="header-button">
+        👤
+      </a>
+      <a href="cart.html" class="cart">
+        🛒
+        <span class="cart-count">0</span>
+      </a>
     </div>
-
-  `;
-
-}
-
-
-function changeQty(id,delta){
-
-  const item = cart.find(x=>x.id === id);
-
-  if(!item) return;
-
-  item.qty += delta;
-
-  if(item.qty <= 0){
-    cart = cart.filter(x=>x.id !== id);
-  }
-
-  saveCart();
-  renderCart();
-}
-
-
-function removeFromCart(id){
-
-  cart = cart.filter(x=>x.id !== id);
-
-  saveCart();
-  renderCart();
-
-  toast("Товар удалён");
-}
-
-
-function checkout(){
-
-  if(!cart.length){
-    toast("Корзина пуста");
-    return;
-  }
-
-  const total = cart.reduce((sum,item)=>{
-
-    const p = products.find(x=>x.id === item.id);
-
-    return sum + p.price * item.qty;
-
-  },0);
-
-  const order = {
-
-    number:
-      "MM-" +
-      Date.now().toString().slice(-6),
-
-    date:
-      new Date().toLocaleDateString("ru-RU"),
-
-    total:total,
-
-    status:"Принят",
-
-    items:cart.length
-
-  };
-
-  orders.unshift(order);
-
-  localStorage.setItem(
-    "millenniumOrders",
-    JSON.stringify(orders)
-  );
-
-  cart = [];
-
-  saveCart();
-
-  toast("Заказ успешно оформлен 🎉");
-
-  setTimeout(()=>{
-    go("orders");
-  },700);
-
-}
-
-
-function renderOrders(){
-
-  const container =
-    document.getElementById("ordersContent");
-
-  if(!orders.length){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">📦</div>
-
-        <h2>Заказов пока нет</h2>
-
-        <p>
-          Как только вы оформите покупку,
-          она появится здесь.
-        </p>
-
-        <button class="primary" onclick="go('catalog')">
-          Перейти в каталог
-        </button>
-
+  </header>
+  <!-- =========================
+       SEARCH
+  ========================== -->
+  <div class="search-box" id="searchBox">
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Поиск товаров..."
+      oninput="searchProducts()"
+    >
+    <button onclick="closeSearch()">
+      ✕
+    </button>
+  </div>
+  <main>
+    <!-- =========================
+         LOCATION
+    ========================== -->
+    <section class="location">
+      <div>
+        <span class="location-label">
+          Доставка
+        </span>
+        <strong>
+          📍 Выберите город
+        </strong>
       </div>
-
-    `;
-
-    return;
-  }
-
-  container.innerHTML = orders.map(order=>`
-
-    <div class="order">
-
-      <div class="order-top">
-
+      <button>
+        Изменить
+      </button>
+    </section>
+    <!-- =========================
+         HERO
+    ========================== -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-label">
+          MILLENNIUM STORE
+        </span>
+        <h1>
+          Всё необходимое
+          <br>
+          в одном месте
+        </h1>
+        <p>
+          Техника, одежда, товары для дома
+          и многое другое с удобной доставкой.
+        </p>
+        <a href="catalog.html" class="button">
+          Перейти в каталог
+        </a>
+      </div>
+    </section>
+    <!-- =========================
+         ADVERTISEMENT
+    ========================== -->
+    <section class="advertisement">
+      <div class="ad-content">
+        <span>
+          СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ
+        </span>
+        <h2>
+          Скидки до 40%
+        </h2>
+        <p>
+          Успейте воспользоваться
+          предложением.
+        </p>
+        <a href="catalog.html">
+          Смотреть акции →
+        </a>
+      </div>
+      <div class="ad-mark">
+        AD
+      </div>
+    </section>
+    <!-- =========================
+         CATEGORIES
+    ========================== -->
+    <section class="section">
+      <div class="section-head">
+        <h2>
+          Категории
+        </h2>
+        <a href="catalog.html">
+          Все →
+        </a>
+      </div>
+      <div class="categories">
+        <a href="catalog.html?category=electronics"
+           class="category">
+          <span>📱</span>
+          <strong>
+            Электроника
+          </strong>
+        </a>
+        <a href="catalog.html?category=clothes"
+           class="category">
+          <span>👕</span>
+          <strong>
+            Одежда
+          </strong>
+        </a>
+        <a href="catalog.html?category=home"
+           class="category">
+          <span>🏠</span>
+          <strong>
+            Для дома
+          </strong>
+        </a>
+        <a href="catalog.html?category=beauty"
+           class="category">
+          <span>✨</span>
+          <strong>
+            Красота
+          </strong>
+        </a>
+        <a href="catalog.html?category=accessories"
+           class="category">
+          <span>🎒</span>
+          <strong>
+            Аксессуары
+          </strong>
+        </a>
+        <a href="catalog.html?category=sport"
+           class="category">
+          <span>⚽</span>
+          <strong>
+            Спорт
+          </strong>
+        </a>
+      </div>
+    </section>
+    <!-- =========================
+         FLASH SALE
+    ========================== -->
+    <section class="section">
+      <div class="section-head">
         <div>
-          <b>Заказ ${order.number}</b>
-          <div class="order-number">
-            ${order.date}
-          </div>
+          <span class="small-label">
+            СЕГОДНЯ
+          </span>
+          <h2>
+            Выгодные предложения
+          </h2>
         </div>
-
-        <div class="status">
-          ${order.status}
-        </div>
-
+        <a href="catalog.html">
+          Все →
+        </a>
       </div>
-
-      <div class="order-info">
-        Товаров: ${order.items}<br>
-        Сумма: <b>${money(order.total)}</b><br>
-        Доставка: бесплатно
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
-
-
-function toggleFavorite(id){
-
-  if(favorites.includes(id)){
-
-    favorites =
-      favorites.filter(x=>x !== id);
-
-    toast("Удалено из избранного");
-
-  }else{
-
-    favorites.push(id);
-
-    toast("Добавлено в избранное ❤️");
-
-  }
-
-  localStorage.setItem(
-    "millenniumFavorites",
-    JSON.stringify(favorites)
-  );
-
-  renderHome();
-  renderCatalog();
-  renderFavorites();
-
-}
-
-
-function renderFavorites(){
-
-  const container =
-    document.getElementById("favoritesContent");
-
-  const list =
-    products.filter(p=>favorites.includes(p.id));
-
-  if(!list.length){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">❤️</div>
-
-        <h2>Избранное пусто</h2>
-
-        <p>
-          Сохраняйте понравившиеся товары,
-          чтобы быстро найти их позже.
-        </p>
-
-        <button class="primary" onclick="go('catalog')">
-          Перейти в каталог
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-  container.innerHTML = `
-    <div class="section">
       <div class="products">
-        ${list.map(p=>`
-
-          <div class="product">
-
-            <div class="product-image">
-              ${p.icon}
-            </div>
-
-            <div class="product-info">
-
-              <div class="product-name">
-                ${p.name}
-              </div>
-
-              <div class="product-price">
-                ${money(p.price)}
-              </div>
-
-              <button
-                class="buy"
-                onclick="addToCart(${p.id})">
-                В корзину
-              </button>
-
-              <button
-                class="buy"
-                onclick="toggleFavorite(${p.id})">
-                ❤️ Убрать
-              </button>
-
-            </div>
-
+        <!-- PRODUCT 1 -->
+        <article class="product-card">
+          <div class="product-image">
+            🎧
+            <button class="favorite">
+              ♡
+            </button>
+            <span class="discount">
+              -25%
+            </span>
           </div>
-
-        `).join("")}
+          <div class="product-info">
+            <h3>
+              Беспроводные наушники
+            </h3>
+            <p class="rating">
+              ★ 4.8
+            </p>
+            <div class="product-price">
+              <strong>
+                1 990 ₽
+              </strong>
+              <del>
+                2 650 ₽
+              </del>
+            </div>
+            <button
+              class="buy-button"
+              onclick="addToCart('Беспроводные наушники', 1990)"
+            >
+              В корзину
+            </button>
+          </div>
+        </article>
+        <!-- PRODUCT 2 -->
+        <article class="product-card">
+          <div class="product-image">
+            ⌚
+            <button class="favorite">
+              ♡
+            </button>
+            <span class="discount">
+              -18%
+            </span>
+          </div>
+          <div class="product-info">
+            <h3>
+              Умные часы
+            </h3>
+            <p class="rating">
+              ★ 4.7
+            </p>
+            <div class="product-price">
+              <strong>
+                2 990 ₽
+              </strong>
+              <del>
+                3 650 ₽
+              </del>
+            </div>
+            <button
+              class="buy-button"
+              onclick="addToCart('Умные часы', 2990)"
+            >
+              В корзину
+            </button>
+          </div>
+        </article>
+        <!-- PRODUCT 3 -->
+        <article class="product-card">
+          <div class="product-image">
+            🎒
+            <button class="favorite">
+              ♡
+            </button>
+          </div>
+          <div class="product-info">
+            <h3>
+              Городской рюкзак
+            </h3>
+            <p class="rating">
+              ★ 4.9
+            </p>
+            <div class="product-price">
+              <strong>
+                2 490 ₽
+              </strong>
+            </div>
+            <button
+              class="buy-button"
+              onclick="addToCart('Городской рюкзак', 2490)"
+            >
+              В корзину
+            </button>
+          </div>
+        </article>
+        <!-- PRODUCT 4 -->
+        <article class="product-card">
+          <div class="product-image">
+            💡
+            <button class="favorite">
+              ♡
+            </button>
+          </div>
+          <div class="product-info">
+            <h3>
+              Настольная лампа
+            </h3>
+            <p class="rating">
+              ★ 4.6
+            </p>
+            <div class="product-price">
+              <strong>
+                1 490 ₽
+              </strong>
+            </div>
+            <button
+              class="buy-button"
+              onclick="addToCart('Настольная лампа', 1490)"
+            >
+              В корзину
+            </button>
+          </div>
+        </article>
       </div>
+    </section>
+    <!-- =========================
+         DELIVERY
+    ========================== -->
+    <section class="delivery-card">
+      <div class="delivery-icon">
+        📦
+      </div>
+      <div>
+        <span>
+          ДОСТАВКА
+        </span>
+        <h2>
+          Получите заказ быстро
+        </h2>
+        <p>
+          Ориентировочно через
+          <strong>2–4 дня</strong>
+        </p>
+      </div>
+    </section>
+    <!-- =========================
+         PAYMENT
+    ========================== -->
+    <section class="section">
+      <div class="section-head">
+        <h2>
+          Удобная оплата
+        </h2>
+      </div>
+      <div class="payment-methods">
+        <div class="payment-card">
+          <span>
+            💳
+          </span>
+          <strong>
+            Банковская карта
+          </strong>
+          <p>
+            Visa / Mastercard
+            и другие карты.
+          </p>
+        </div>
+        <div class="payment-card">
+          <span>
+            🏦
+          </span>
+          <strong>
+            Банк
+          </strong>
+          <p>
+            Оплата через
+            банковские сервисы КР.
+          </p>
+        </div>
+        <div class="payment-card">
+          <span>
+            💰
+          </span>
+          <strong>
+            При получении
+          </strong>
+          <p>
+            Если способ доступен
+            для выбранной доставки.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- =========================
+         ORDER INFO
+    ========================== -->
+    <section class="order-preview">
+      <div>
+        <span>
+          ОФОРМЛЕНИЕ ЗАКАЗА
+        </span>
+        <h2>
+          Всё под контролем
+        </h2>
+        <p>
+          Адрес → доставка → способ оплаты
+          → подтверждение заказа.
+        </p>
+      </div>
+      <a href="checkout.html" class="button">
+        Оформить заказ
+      </a>
+    </section>
+    <!-- =========================
+         PROMO
+    ========================== -->
+    <section class="promo">
+      <span>
+        ПРОМОКОД
+      </span>
+      <h2>
+        Скидка на первый заказ
+      </h2>
+      <p>
+        Используйте промокод
+        при оформлении заказа.
+      </p>
+      <div class="promo-code">
+        MILLENNIUM
+      </div>
+    </section>
+    <!-- =========================
+         SUPPORT
+    ========================== -->
+    <section class="section">
+      <div class="support-card">
+        <div>
+          <span>
+            НУЖНА ПОМОЩЬ?
+          </span>
+          <h2>
+            Мы рядом
+          </h2>
+          <p>
+            Вопросы по заказу,
+            оплате или доставке.
+          </p>
+        </div>
+        <a href="support.html">
+          Поддержка →
+        </a>
+      </div>
+    </section>
+  </main>
+  <!-- =========================
+       BOTTOM NAVIGATION
+  ========================== -->
+  <nav class="bottom-nav">
+    <a
+      href="index.html"
+      class="active"
+    >
+      <span>⌂</span>
+      <small>
+        Главная
+      </small>
+    </a>
+    <a href="catalog.html">
+      <span>⌕</span>
+      <small>
+        Каталог
+      </small>
+    </a>
+    <a href="cart.html">
+      <span class="nav-cart">
+        🛒
+        <b class="cart-count">0</b>
+      </span>
+      <small>
+        Корзина
+      </small>
+    </a>
+    <a href="profile.html">
+      <span>
+        ◯
+      </span>
+      <small>
+        Профиль
+      </small>
+    </a>
+  </nav>
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer>
+    <strong>
+      MILLENNIUM
+    </strong>
+    <p>
+      Современный магазин
+      для повседневных покупок.
+    </p>
+    <div class="footer-links">
+      <a href="about.html">
+        О магазине
+      </a>
+      <a href="delivery.html">
+        Доставка
+      </a>
+      <a href="payment.html">
+        Оплата
+      </a>
+      <a href="support.html">
+        Поддержка
+      </a>
+      <a href="settings.html">
+        Настройки
+      </a>
     </div>
-  `;
-
-}
-
-
-function filterCategory(category){
-
-  currentCategory = category;
-
-  document.querySelectorAll(".category")
-    .forEach(btn=>{
-      btn.classList.toggle(
-        "active",
-        btn.textContent.includes(category) ||
-        (category === "Все" &&
-         btn.textContent.includes("Все"))
+    <p>
+      © 2026 Millennium
+    </p>
+  </footer>
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+  <script>
+    /* SEARCH */
+    function openSearch() {
+      const box = document.getElementById("searchBox");
+      box.classList.add("active");
+      document.getElementById("searchInput").focus();
+    }
+    function closeSearch() {
+      const box = document.getElementById("searchBox");
+      box.classList.remove("active");
+      document.getElementById("searchInput").value = "";
+    }
+    function searchProducts() {
+      const input =
+        document.getElementById("searchInput");
+      const value =
+        input.value.toLowerCase();
+      console.log("Поиск:", value);
+      /*
+        Позже здесь подключим
+        настоящий поиск товаров.
+      */
+    }
+    /* CART */
+    function addToCart(name, price) {
+      let cart =
+        JSON.parse(
+          localStorage.getItem("millenniumCart")
+        ) || [];
+      cart.push({
+        name: name,
+        price: price,
+        quantity: 1
+      });
+      localStorage.setItem(
+        "millenniumCart",
+        JSON.stringify(cart)
       );
-    });
-
-  renderHome();
-  renderCatalog();
-
-  if(
-    document.getElementById("catalog").classList.contains("active")
-  ){
-    go("catalog");
-  }
-
-}
-
-
-function searchProducts(){
-  renderCatalog();
-}
-
-
-function saveProfile(){
-
-  profile = {
-
-    fio:
-      document.getElementById("fio").value,
-
-    phone:
-      document.getElementById("phone").value,
-
-    email:
-      document.getElementById("email").value,
-
-    address:
-      document.getElementById("address").value
-
-  };
-
-  localStorage.setItem(
-    "millenniumProfile",
-    JSON.stringify(profile)
-  );
-
-  renderProfile();
-
-  toast("Данные сохранены ✓");
-
-  setTimeout(()=>{
-    go("profile");
-  },500);
-
-}
-
-
-function loadProfile(){
-
-  document.getElementById("fio").value =
-    profile.fio || "";
-
-  document.getElementById("phone").value =
-    profile.phone || "";
-
-  document.getElementById("email").value =
-    profile.email || "";
-
-  document.getElementById("address").value =
-    profile.address || "";
-
-}
-
-
-function renderProfile(){
-
-  const name =
-    document.getElementById("profileName");
-
-  const phone =
-    document.getElementById("profilePhone");
-
-  if(profile.fio){
-
-    name.textContent =
-      profile.fio;
-
-  }else{
-
-    name.textContent =
-      "Ваш профиль";
-
-  }
-
-  phone.textContent =
-    profile.phone ||
-    "Добавьте свои данные";
-
-}
-
-
-function toast(message){
-
-  const el =
-    document.getElementById("toast");
-
-  el.textContent = message;
-
-  el.classList.add("show");
-
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer =
-    setTimeout(()=>{
-      el.classList.remove("show");
-    },1800);
-
-}
-
-
-/* ЗАПУСК */
-
-renderHome();
-renderCatalog();
-renderProfile();
-renderOrders();
-renderFavorites();
-updateBadge();
-
-</script>
-
+      updateCartCount();
+      alert(
+        name + " добавлен в корзину"
+      );
+    }
+    function updateCartCount() {
+      let cart =
+        JSON.parse(
+          localStorage.getItem("millenniumCart")
+        ) || [];
+      const counters =
+        document.querySelectorAll(".cart-count");
+      counters.forEach(function(counter) {
+        counter.textContent = cart.length;
+      });
+    }
+    /* START */
+    updateCartCount();
+  </script>
 </body>
 </html>
