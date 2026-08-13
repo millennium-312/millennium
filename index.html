@@ -1,662 +1,811 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Millennium — магазин</title>
 
-  <title>Millennium — магазин</title>
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-  <link rel="stylesheet" href="css/style.css">
+:root{
+  --bg:#08090b;
+  --panel:#131519;
+  --panel2:#1a1c21;
+  --line:#292c33;
+  --text:#fff;
+  --muted:#9297a3;
+  --accent:#b66cff;
+  --accent2:#8d3dff;
+  --green:#42d77d;
+  --danger:#ff5570;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  padding-bottom:90px;
+}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0b0b0d;
-      color: #fff;
-      min-height: 100vh;
-    }
+button,
+input{
+  font:inherit;
+}
 
-    button,
-    input {
-      font: inherit;
-    }
+button{
+  border:0;
+  cursor:pointer;
+}
 
-    button {
-      cursor: pointer;
-    }
+.page{
+  display:none;
+  min-height:calc(100vh - 85px);
+  animation:show .2s ease;
+}
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: 70px;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(11,11,13,.95);
-      border-bottom: 1px solid #25252a;
-      backdrop-filter: blur(12px);
-    }
+.page.active{
+  display:block;
+}
 
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
+@keyframes show{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-    .header-cart {
-      position: relative;
-      font-size: 23px;
-      background: transparent;
-      border: 0;
-      color: white;
-    }
+/* HEADER */
 
-    .cart-count {
-      position: absolute;
-      top: -7px;
-      right: -9px;
-      width: 19px;
-      height: 19px;
-      border-radius: 50%;
-      background: #00ff88;
-      color: #000;
-      font-size: 11px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.top{
+  padding:18px 18px 14px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(8,9,11,.94);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
 
-    .screen {
-      display: none;
-      min-height: calc(100vh - 70px);
-      padding-bottom: 90px;
-    }
+.top-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
 
-    .screen.active {
-      display: block;
-    }
+.logo{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
 
-    .hero {
-      padding: 75px 22px 45px;
-      text-align: center;
-    }
+.logo span{
+  color:var(--accent);
+}
 
-    .hero h1 {
-      font-size: 48px;
-      line-height: 1;
-      margin-bottom: 18px;
-      letter-spacing: -2px;
-    }
+.icon-btn{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:var(--panel2);
+  color:white;
+  border:1px solid var(--line);
+  font-size:20px;
+}
 
-    .hero p {
-      max-width: 430px;
-      margin: 0 auto 28px;
-      color: #a5a5ad;
-      line-height: 1.5;
-    }
+.header-title{
+  font-size:24px;
+  font-weight:800;
+}
 
-    .primary {
-      border: 0;
-      border-radius: 14px;
-      padding: 15px 24px;
-      background: #00ff88;
-      color: #000;
-      font-weight: 800;
-    }
+/* HOME */
 
-    .section {
-      padding: 20px;
-    }
+.hero{
+  margin:18px;
+  padding:28px 22px;
+  border-radius:26px;
+  background:linear-gradient(135deg,#17191e,#0e0f12);
+  border:1px solid var(--line);
+}
 
-    .section-title {
-      margin-bottom: 16px;
-      font-size: 25px;
-    }
+.hero small{
+  color:var(--accent);
+  font-weight:700;
+}
 
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
+.hero h1{
+  font-size:38px;
+  line-height:1;
+  margin:10px 0 12px;
+}
 
-    .menu-card {
-      min-height: 145px;
-      padding: 20px 16px;
-      background: #151518;
-      border: 1px solid #29292f;
-      border-radius: 18px;
-      color: white;
-      text-align: left;
-      transition: .2s;
-    }
+.hero p{
+  color:var(--muted);
+  line-height:1.5;
+  margin-bottom:20px;
+}
 
-    .menu-card:active {
-      transform: scale(.97);
-    }
+.primary{
+  width:100%;
+  padding:16px;
+  border-radius:15px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:800;
+  font-size:16px;
+}
 
-    .menu-icon {
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
+.primary:active{
+  transform:scale(.98);
+}
 
-    .menu-card h3 {
-      margin-bottom: 7px;
-      font-size: 16px;
-    }
+.section{
+  padding:5px 18px 20px;
+}
 
-    .menu-card p {
-      color: #85858e;
-      font-size: 13px;
-      line-height: 1.4;
-    }
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:15px 0;
+}
 
-    .page-header {
-      padding: 28px 20px 18px;
-    }
+.section-head h2{
+  font-size:22px;
+}
 
-    .page-header h2 {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
+.link{
+  color:var(--accent);
+  background:none;
+  font-weight:700;
+}
 
-    .page-header p {
-      color: #909098;
-    }
+/* CATEGORIES */
 
-    .back {
-      margin-top: 20px;
-      padding: 12px 17px;
-      border: 1px solid #303036;
-      border-radius: 12px;
-      background: #18181c;
-      color: white;
-    }
+.categories{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:5px;
+}
 
-    .products {
-      display: grid;
-      gap: 15px;
-      padding: 0 20px;
-    }
+.categories::-webkit-scrollbar{
+  display:none;
+}
 
-    .product {
-      overflow: hidden;
-      background: #151518;
-      border: 1px solid #29292f;
-      border-radius: 18px;
-    }
+.category{
+  flex:none;
+  padding:12px 16px;
+  border-radius:14px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:white;
+}
 
-    .product-image {
-      height: 150px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #202024;
-      font-size: 60px;
-    }
+.category.active{
+  background:var(--accent);
+  border-color:var(--accent);
+}
 
-    .product-info {
-      padding: 17px;
-    }
+/* PRODUCTS */
 
-    .product-info h3 {
-      margin-bottom: 7px;
-    }
+.products{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
 
-    .product-info p {
-      margin-bottom: 15px;
-      color: #85858e;
-      font-size: 14px;
-    }
+.product{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:19px;
+  overflow:hidden;
+  position:relative;
+}
 
-    .product-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
+.product-image{
+  height:165px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:65px;
+  background:linear-gradient(135deg,#242731,#111217);
+}
 
-    .price {
-      font-size: 19px;
-      font-weight: 800;
-    }
+.product-info{
+  padding:12px;
+}
 
-    .buy {
-      padding: 11px 14px;
-      border: 0;
-      border-radius: 11px;
-      background: #00ff88;
-      color: #000;
-      font-weight: 800;
-    }
+.product-name{
+  font-size:15px;
+  line-height:1.3;
+  min-height:40px;
+}
 
-    .empty {
-      margin: 0 20px;
-      padding: 35px 20px;
-      text-align: center;
-      background: #151518;
-      border: 1px solid #29292f;
-      border-radius: 18px;
-      color: #92929a;
-    }
+.product-price{
+  margin-top:7px;
+  font-size:19px;
+  font-weight:900;
+}
 
-    .order {
-      margin: 0 20px 14px;
-      padding: 18px;
-      background: #151518;
-      border: 1px solid #29292f;
-      border-radius: 18px;
-    }
+.old-price{
+  color:#70747e;
+  text-decoration:line-through;
+  font-size:12px;
+  margin-left:5px;
+}
 
-    .order-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
+.buy{
+  width:100%;
+  margin-top:10px;
+  padding:11px;
+  border-radius:12px;
+  background:var(--panel2);
+  color:var(--accent);
+  font-weight:800;
+  border:1px solid #333640;
+}
 
-    .status {
-      color: #00ff88;
-      font-size: 13px;
-      font-weight: 700;
-    }
+/* SEARCH */
 
-    .profile-box,
-    .form-box {
-      margin: 0 20px;
-      padding: 20px;
-      background: #151518;
-      border: 1px solid #29292f;
-      border-radius: 18px;
-    }
+.search{
+  margin:16px 18px;
+  position:relative;
+}
 
-    .field {
-      margin-bottom: 15px;
-    }
+.search input{
+  width:100%;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:white;
+  border-radius:16px;
+  padding:15px 18px 15px 45px;
+  outline:none;
+}
 
-    .field label {
-      display: block;
-      margin-bottom: 7px;
-      color: #9999a2;
-      font-size: 13px;
-    }
+.search span{
+  position:absolute;
+  left:17px;
+  top:12px;
+  font-size:21px;
+}
 
-    .field input {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #303036;
-      border-radius: 12px;
-      outline: none;
-      background: #0f0f12;
-      color: white;
-    }
+/* CART */
 
-    .field input:focus {
-      border-color: #00ff88;
-    }
+.cart-item{
+  margin:10px 18px;
+  padding:14px;
+  border-radius:18px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  display:flex;
+  gap:12px;
+}
 
-    .total {
-      margin: 20px;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      border-radius: 16px;
-      background: #151518;
-      font-size: 19px;
-      font-weight: 800;
-    }
+.cart-image{
+  width:82px;
+  height:82px;
+  border-radius:14px;
+  background:var(--panel2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  flex:none;
+}
 
-    .checkout {
-      margin: 0 20px;
-      width: calc(100% - 40px);
-    }
+.cart-info{
+  flex:1;
+}
 
-    .tracking-result {
-      margin-top: 18px;
-      color: #00ff88;
-      line-height: 1.5;
-    }
+.cart-name{
+  font-weight:700;
+  line-height:1.3;
+}
 
-    .bottom-nav {
-      position: fixed;
-      z-index: 200;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      height: 65px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      background: rgba(25,25,29,.96);
-      border: 1px solid #303036;
-      border-radius: 18px;
-      backdrop-filter: blur(15px);
-    }
+.cart-price{
+  margin-top:6px;
+  font-weight:900;
+}
 
-    .nav-btn {
-      border: 0;
-      background: transparent;
-      color: #85858e;
-      font-size: 11px;
-    }
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:10px;
+}
 
-    .nav-btn span {
-      display: block;
-      font-size: 21px;
-      margin-bottom: 2px;
-    }
+.quantity button{
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:#292c34;
+  color:white;
+}
 
-    .nav-btn.active {
-      color: #00ff88;
-    }
+.remove{
+  background:none;
+  color:var(--danger);
+  margin-top:9px;
+}
 
-    footer {
-      padding: 35px 20px 100px;
-      text-align: center;
-      color: #5f5f67;
-      font-size: 13px;
-    }
+.total{
+  margin:18px;
+  padding:20px;
+  border-radius:20px;
+  background:var(--panel);
+  border:1px solid var(--line);
+}
 
-    @media (min-width: 700px) {
-      .products {
-        grid-template-columns: repeat(3, 1fr);
-      }
+.total-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  color:var(--muted);
+}
 
-      .menu-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-  </style>
+.total-main{
+  color:white;
+  font-size:22px;
+  font-weight:900;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:90px 25px;
+}
+
+.empty-icon{
+  font-size:55px;
+  margin-bottom:18px;
+}
+
+.empty h2{
+  font-size:24px;
+}
+
+.empty p{
+  color:var(--muted);
+  margin:10px 0 25px;
+}
+
+/* PROFILE */
+
+.profile-head{
+  margin:18px;
+  padding:28px 20px;
+  border-radius:25px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  text-align:center;
+}
+
+.avatar{
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel2);
+  border:2px solid #393d48;
+  font-size:36px;
+}
+
+.profile-name{
+  font-size:25px;
+  font-weight:900;
+  margin-top:14px;
+}
+
+.profile-phone{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.profile-menu{
+  margin:18px;
+  border-radius:20px;
+  overflow:hidden;
+  background:var(--panel);
+  border:1px solid var(--line);
+}
+
+.menu-item{
+  width:100%;
+  padding:19px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:none;
+  color:white;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+}
+
+.menu-item:last-child{
+  border-bottom:0;
+}
+
+.menu-icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel2);
+  font-size:20px;
+}
+
+.menu-arrow{
+  margin-left:auto;
+  color:var(--muted);
+  font-size:22px;
+}
+
+/* FORM */
+
+.form{
+  padding:18px;
+}
+
+.field{
+  margin-bottom:16px;
+}
+
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+.field input{
+  width:100%;
+  padding:15px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:white;
+  outline:none;
+}
+
+.field input:focus{
+  border-color:var(--accent);
+}
+
+/* ORDERS */
+
+.order{
+  margin:14px 18px;
+  padding:18px;
+  border-radius:19px;
+  background:var(--panel);
+  border:1px solid var(--line);
+}
+
+.order-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.status{
+  color:var(--green);
+  font-weight:700;
+}
+
+.order-number{
+  color:var(--muted);
+}
+
+.order-info{
+  color:#d5d7dc;
+  line-height:1.6;
+}
+
+/* BOTTOM */
+
+.bottom{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:78px;
+  background:rgba(17,18,22,.97);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  z-index:50;
+}
+
+.nav-btn{
+  position:relative;
+  background:none;
+  color:#6f7480;
+  font-size:25px;
+}
+
+.nav-btn span{
+  display:block;
+  font-size:11px;
+  margin-top:4px;
+}
+
+.nav-btn.active{
+  color:var(--accent);
+}
+
+.badge{
+  position:absolute;
+  top:8px;
+  right:25%;
+  min-width:20px;
+  height:20px;
+  border-radius:10px;
+  background:#ff3d5f;
+  color:white;
+  font-size:11px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:20px;
+  right:20px;
+  bottom:95px;
+  padding:15px;
+  border-radius:15px;
+  background:#24272f;
+  border:1px solid #3b3f4a;
+  text-align:center;
+  z-index:100;
+  transform:translateY(130px);
+  opacity:0;
+  transition:.25s;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+@media(min-width:700px){
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .hero,
+  .section,
+  .profile-head,
+  .profile-menu,
+  .form{
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">millennium</div>
-
-  <button class="header-cart" onclick="showScreen('cart')">
-    🛒
-    <span id="cartCount" class="cart-count">0</span>
-  </button>
-</header>
-
-
 <!-- ГЛАВНАЯ -->
+<section id="home" class="page active">
 
-<section id="home" class="screen active">
+  <header class="top">
+    <div class="top-row">
+      <div class="logo">millennium<span>.</span></div>
+      <button class="icon-btn" onclick="go('cart')">🛒</button>
+    </div>
+  </header>
 
   <div class="hero">
-    <h1>Millennium</h1>
-
+    <small>МИР ПОКУПОК MILLENNIUM</small>
+    <h1>Всё нужное<br>в одном месте.</h1>
     <p>
-      Современный интернет-магазин.
-      Покупайте удобно, быстро и безопасно.
+      Стильный магазин с удобным каталогом,
+      корзиной и быстрым оформлением заказа.
     </p>
-
-    <button class="primary" onclick="showScreen('shop')">
+    <button class="primary" onclick="go('catalog')">
       Начать покупки
     </button>
   </div>
 
   <div class="section">
-
-    <h2 class="section-title">
-      Millennium для вас
-    </h2>
-
-    <div class="menu-grid">
-
-      <button class="menu-card" onclick="showScreen('shop')">
-        <div class="menu-icon">🛍️</div>
-        <h3>Магазин</h3>
-        <p>Каталог товаров и покупки.</p>
-      </button>
-
-      <button class="menu-card" onclick="showScreen('orders')">
-        <div class="menu-icon">📦</div>
-        <h3>Мои заказы</h3>
-        <p>История покупок и статусы.</p>
-      </button>
-
-      <button class="menu-card" onclick="showScreen('tracking')">
-        <div class="menu-icon">🚚</div>
-        <h3>Отслеживание</h3>
-        <p>Узнайте, где находится заказ.</p>
-      </button>
-
-      <button class="menu-card" onclick="showScreen('profile')">
-        <div class="menu-icon">👤</div>
-        <h3>Профиль</h3>
-        <p>Ваши данные и настройки.</p>
-      </button>
-
+    <div class="section-head">
+      <h2>Категории</h2>
+      <button class="link" onclick="go('catalog')">Все</button>
     </div>
 
+    <div class="categories">
+      <button class="category active" onclick="filterCategory('Все')">Все</button>
+      <button class="category" onclick="filterCategory('Красота')">✨ Красота</button>
+      <button class="category" onclick="filterCategory('Одежда')">👕 Одежда</button>
+      <button class="category" onclick="filterCategory('Техника')">📱 Техника</button>
+      <button class="category" onclick="filterCategory('Дом')">🏠 Дом</button>
+    </div>
   </div>
 
-  <footer>
-    © 2026 Millennium
-  </footer>
+  <div class="section">
+    <div class="section-head">
+      <h2>Популярное</h2>
+      <button class="link" onclick="go('catalog')">Смотреть</button>
+    </div>
+
+    <div id="homeProducts" class="products"></div>
+  </div>
 
 </section>
 
 
-<!-- МАГАЗИН -->
+<!-- КАТАЛОГ -->
+<section id="catalog" class="page">
 
-<section id="shop" class="screen">
+  <header class="top">
+    <div class="top-row">
+      <button class="icon-btn" onclick="go('home')">‹</button>
+      <div class="header-title">Каталог</div>
+      <button class="icon-btn" onclick="go('cart')">🛒</button>
+    </div>
+  </header>
 
-  <div class="page-header">
-    <h2>🛍️ Магазин</h2>
-    <p>Выберите товар</p>
+  <div class="search">
+    <span>⌕</span>
+    <input id="searchInput" type="text" placeholder="Поиск товаров..." oninput="searchProducts()">
   </div>
 
-  <div class="products">
-
-    <div class="product">
-      <div class="product-image">📱</div>
-
-      <div class="product-info">
-        <h3>Smartphone Pro</h3>
-        <p>Современный смартфон Millennium.</p>
-
-        <div class="product-bottom">
-          <span class="price">€799</span>
-
-          <button class="buy"
-            onclick="addToCart('Smartphone Pro',799)">
-            В корзину
-          </button>
-        </div>
-      </div>
+  <div class="section">
+    <div class="categories">
+      <button class="category active" onclick="filterCategory('Все')">Все</button>
+      <button class="category" onclick="filterCategory('Красота')">Красота</button>
+      <button class="category" onclick="filterCategory('Одежда')">Одежда</button>
+      <button class="category" onclick="filterCategory('Техника')">Техника</button>
+      <button class="category" onclick="filterCategory('Дом')">Дом</button>
     </div>
+  </div>
 
-
-    <div class="product">
-      <div class="product-image">🎧</div>
-
-      <div class="product-info">
-        <h3>Millennium Air</h3>
-        <p>Беспроводные наушники.</p>
-
-        <div class="product-bottom">
-          <span class="price">€149</span>
-
-          <button class="buy"
-            onclick="addToCart('Millennium Air',149)">
-            В корзину
-          </button>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="product">
-      <div class="product-image">⌚</div>
-
-      <div class="product-info">
-        <h3>Smart Watch</h3>
-        <p>Умные часы для каждого дня.</p>
-
-        <div class="product-bottom">
-          <span class="price">€229</span>
-
-          <button class="buy"
-            onclick="addToCart('Smart Watch',229)">
-            В корзину
-          </button>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="product">
-      <div class="product-image">💻</div>
-
-      <div class="product-info">
-        <h3>Millennium Book</h3>
-        <p>Мощный ноутбук для работы.</p>
-
-        <div class="product-bottom">
-          <span class="price">€1,199</span>
-
-          <button class="buy"
-            onclick="addToCart('Millennium Book',1199)">
-            В корзину
-          </button>
-        </div>
-      </div>
-    </div>
-
+  <div class="section">
+    <div id="catalogProducts" class="products"></div>
   </div>
 
 </section>
 
 
 <!-- КОРЗИНА -->
+<section id="cart" class="page">
 
-<section id="cart" class="screen">
+  <header class="top">
+    <div class="top-row">
+      <button class="icon-btn" onclick="go('home')">‹</button>
+      <div class="header-title">Корзина</div>
+      <div style="width:44px"></div>
+    </div>
+  </header>
 
-  <div class="page-header">
-    <h2>🛒 Корзина</h2>
-    <p>Ваши выбранные товары</p>
-  </div>
-
-  <div id="cartItems"></div>
-
-  <div class="total">
-    <span>Итого</span>
-    <span id="cartTotal">€0</span>
-  </div>
-
-  <button class="primary checkout" onclick="checkout()">
-    Оформить заказ
-  </button>
+  <div id="cartContent"></div>
 
 </section>
 
 
 <!-- ЗАКАЗЫ -->
+<section id="orders" class="page">
 
-<section id="orders" class="screen">
-
-  <div class="page-header">
-    <h2>📦 Мои заказы</h2>
-    <p>История ваших покупок</p>
-  </div>
-
-  <div id="ordersList">
-    <div class="empty">
-      У вас пока нет заказов.
+  <header class="top">
+    <div class="top-row">
+      <button class="icon-btn" onclick="go('profile')">‹</button>
+      <div class="header-title">Заказы</div>
+      <div style="width:44px"></div>
     </div>
-  </div>
+  </header>
 
-</section>
-
-
-<!-- ОТСЛЕЖИВАНИЕ -->
-
-<section id="tracking" class="screen">
-
-  <div class="page-header">
-    <h2>🚚 Отслеживание</h2>
-    <p>Введите номер заказа</p>
-  </div>
-
-  <div class="form-box">
-
-    <div class="field">
-      <label>Номер заказа</label>
-
-      <input
-        id="trackingNumber"
-        type="text"
-        placeholder="Например: ML-10001">
-    </div>
-
-    <button class="primary" onclick="trackOrder()">
-      Отследить заказ
-    </button>
-
-    <div id="trackingResult"
-         class="tracking-result"></div>
-
-  </div>
+  <div id="ordersContent"></div>
 
 </section>
 
 
 <!-- ПРОФИЛЬ -->
+<section id="profile" class="page">
 
-<section id="profile" class="screen">
+  <header class="top">
+    <div class="top-row">
+      <div class="logo">millennium<span>.</span></div>
+      <button class="icon-btn" onclick="go('settings')">⚙️</button>
+    </div>
+  </header>
 
-  <div class="page-header">
-    <h2>👤 Профиль</h2>
-    <p>Ваши персональные данные</p>
+  <div class="profile-head">
+    <div class="avatar">👤</div>
+    <div id="profileName" class="profile-name">Ваш профиль</div>
+    <div id="profilePhone" class="profile-phone">Добавьте свои данные</div>
   </div>
 
-  <div class="profile-box">
+  <div class="profile-menu">
+
+    <button class="menu-item" onclick="go('data')">
+      <div class="menu-icon">👤</div>
+      <div>
+        <b>Мои данные</b><br>
+        <small style="color:var(--muted)">ФИО, телефон, email</small>
+      </div>
+      <div class="menu-arrow">›</div>
+    </button>
+
+    <button class="menu-item" onclick="go('orders')">
+      <div class="menu-icon">📦</div>
+      <div>
+        <b>Мои заказы</b><br>
+        <small style="color:var(--muted)">История покупок</small>
+      </div>
+      <div class="menu-arrow">›</div>
+    </button>
+
+    <button class="menu-item" onclick="go('favorites')">
+      <div class="menu-icon">❤️</div>
+      <div>
+        <b>Избранное</b><br>
+        <small style="color:var(--muted)">Сохранённые товары</small>
+      </div>
+      <div class="menu-arrow">›</div>
+    </button>
+
+    <button class="menu-item" onclick="go('settings')">
+      <div class="menu-icon">⚙️</div>
+      <div>
+        <b>Настройки</b><br>
+        <small style="color:var(--muted)">Настройки приложения</small>
+      </div>
+      <div class="menu-arrow">›</div>
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ДАННЫЕ -->
+<section id="data" class="page">
+
+  <header class="top">
+    <div class="top-row">
+      <button class="icon-btn" onclick="go('profile')">‹</button>
+      <div class="header-title">Мои данные</div>
+      <div style="width:44px"></div>
+    </div>
+  </header>
+
+  <div class="form">
 
     <div class="field">
       <label>ФИО</label>
-
-      <input
-        id="profileName"
-        type="text"
-        placeholder="Введите ФИО">
+      <input id="fio" placeholder="Введите ФИО">
     </div>
 
     <div class="field">
       <label>Телефон</label>
-
-      <input
-        id="profilePhone"
-        type="tel"
-        placeholder="+31 ...">
+      <input id="phone" type="tel" placeholder="+7 900 000-00-00">
     </div>
 
     <div class="field">
       <label>Email</label>
-
-      <input
-        id="profileEmail"
-        type="email"
-        placeholder="example@email.com">
+      <input id="email" type="email" placeholder="example@mail.ru">
     </div>
 
     <div class="field">
       <label>Адрес доставки</label>
-
-      <input
-        id="profileAddress"
-        type="text"
-        placeholder="Ваш адрес">
+      <input id="address" placeholder="Город, улица, дом, квартира">
     </div>
 
     <button class="primary" onclick="saveProfile()">
@@ -668,296 +817,728 @@
 </section>
 
 
-<!-- НИЖНЯЯ НАВИГАЦИЯ -->
+<!-- НАСТРОЙКИ -->
+<section id="settings" class="page">
 
-<nav class="bottom-nav">
+  <header class="top">
+    <div class="top-row">
+      <button class="icon-btn" onclick="go('profile')">‹</button>
+      <div class="header-title">Настройки</div>
+      <div style="width:44px"></div>
+    </div>
+  </header>
 
-  <button class="nav-btn active"
-          onclick="showScreen('home')">
-    <span>⌂</span>
-    Главная
+  <div class="profile-menu">
+
+    <button class="menu-item" onclick="toast('Уведомления включены')">
+      <div class="menu-icon">🔔</div>
+      <div>Уведомления</div>
+      <div class="menu-arrow">›</div>
+    </button>
+
+    <button class="menu-item" onclick="toast('Язык: русский')">
+      <div class="menu-icon">🌐</div>
+      <div>Язык</div>
+      <div class="menu-arrow">›</div>
+    </button>
+
+    <button class="menu-item" onclick="toast('Тёмная тема включена')">
+      <div class="menu-icon">🌙</div>
+      <div>Тёмная тема</div>
+      <div class="menu-arrow">✓</div>
+    </button>
+
+    <button class="menu-item" onclick="toast('Раздел помощи')">
+      <div class="menu-icon">❓</div>
+      <div>Помощь</div>
+      <div class="menu-arrow">›</div>
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ИЗБРАННОЕ -->
+<section id="favorites" class="page">
+
+  <header class="top">
+    <div class="top-row">
+      <button class="icon-btn" onclick="go('profile')">‹</button>
+      <div class="header-title">Избранное</div>
+      <div style="width:44px"></div>
+    </div>
+  </header>
+
+  <div id="favoritesContent"></div>
+
+</section>
+
+
+<!-- НИЖНЕЕ МЕНЮ -->
+
+<nav class="bottom">
+
+  <button class="nav-btn active" data-page="home" onclick="go('home')">
+    🏠
+    <span>Главная</span>
   </button>
 
-  <button class="nav-btn"
-          onclick="showScreen('shop')">
-    <span>🛍️</span>
-    Магазин
+  <button class="nav-btn" data-page="catalog" onclick="go('catalog')">
+    🔎
+    <span>Каталог</span>
   </button>
 
-  <button class="nav-btn"
-          onclick="showScreen('orders')">
-    <span>📦</span>
-    Заказы
+  <button class="nav-btn" data-page="cart" onclick="go('cart')">
+    🛒
+    <span>Корзина</span>
+    <i id="cartBadge" class="badge">0</i>
   </button>
 
-  <button class="nav-btn"
-          onclick="showScreen('profile')">
-    <span>👤</span>
-    Профиль
+  <button class="nav-btn" data-page="profile" onclick="go('profile')">
+    👤
+    <span>Профиль</span>
   </button>
 
 </nav>
 
+<div id="toast" class="toast"></div>
+
 
 <script>
 
-let cart = [];
+const products = [
 
-let orders = [];
+  {
+    id:1,
+    name:"Сыворотка для лица",
+    category:"Красота",
+    price:1647,
+    old:4142,
+    icon:"✨"
+  },
 
+  {
+    id:2,
+    name:"Стильная худи oversize",
+    category:"Одежда",
+    price:3024,
+    old:7000,
+    icon:"👕"
+  },
 
-function showScreen(screenId) {
+  {
+    id:3,
+    name:"Беспроводные наушники",
+    category:"Техника",
+    price:2490,
+    old:3990,
+    icon:"🎧"
+  },
 
-  const screens =
-    document.querySelectorAll(".screen");
+  {
+    id:4,
+    name:"Умные часы",
+    category:"Техника",
+    price:4590,
+    old:6990,
+    icon:"⌚"
+  },
 
-  screens.forEach(function(screen) {
-    screen.classList.remove("active");
-  });
+  {
+    id:5,
+    name:"Аромат для дома",
+    category:"Дом",
+    price:890,
+    old:1290,
+    icon:"🕯️"
+  },
 
-  const selected =
-    document.getElementById(screenId);
-
-  if (selected) {
-    selected.classList.add("active");
+  {
+    id:6,
+    name:"Кроссовки Millennium",
+    category:"Одежда",
+    price:3890,
+    old:5990,
+    icon:"👟"
   }
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+];
 
-  updateNavigation(screenId);
+let cart = JSON.parse(localStorage.getItem("millenniumCart") || "[]");
+let favorites = JSON.parse(localStorage.getItem("millenniumFavorites") || "[]");
+let orders = JSON.parse(localStorage.getItem("millenniumOrders") || "[]");
+let profile = JSON.parse(localStorage.getItem("millenniumProfile") || "{}");
+let currentCategory = "Все";
+
+
+function money(number){
+  return number.toLocaleString("ru-RU") + " ₽";
 }
 
 
-function updateNavigation(screenId) {
+function go(page){
 
-  const buttons =
-    document.querySelectorAll(".nav-btn");
-
-  buttons.forEach(function(button) {
-    button.classList.remove("active");
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
   });
 
-  if (screenId === "home") {
-    buttons[0].classList.add("active");
+  const target = document.getElementById(page);
+
+  if(target){
+    target.classList.add("active");
   }
 
-  if (screenId === "shop") {
-    buttons[1].classList.add("active");
-  }
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.remove("active");
 
-  if (screenId === "orders") {
-    buttons[2].classList.add("active");
-  }
+    if(btn.dataset.page === page){
+      btn.classList.add("active");
+    }
+  });
 
-  if (screenId === "profile") {
-    buttons[3].classList.add("active");
-  }
+  if(page === "cart") renderCart();
+  if(page === "orders") renderOrders();
+  if(page === "profile") renderProfile();
+  if(page === "favorites") renderFavorites();
+  if(page === "data") loadProfile();
+
+  window.scrollTo(0,0);
 }
 
 
-function addToCart(name, price) {
+function renderProducts(containerId){
 
-  cart.push({
-    name: name,
-    price: price
+  const container = document.getElementById(containerId);
+
+  if(!container) return;
+
+  const search =
+    document.getElementById("searchInput")?.value.toLowerCase() || "";
+
+  const list = products.filter(p=>{
+
+    const categoryOk =
+      currentCategory === "Все" ||
+      p.category === currentCategory;
+
+    const searchOk =
+      p.name.toLowerCase().includes(search);
+
+    return categoryOk && searchOk;
+
   });
 
-  updateCart();
+  if(!list.length){
 
-  showScreen("cart");
-}
-
-
-function updateCart() {
-
-  const container =
-    document.getElementById("cartItems");
-
-  const count =
-    document.getElementById("cartCount");
-
-  const total =
-    document.getElementById("cartTotal");
-
-  count.textContent = cart.length;
-
-  if (cart.length === 0) {
-
-    container.innerHTML =
-      '<div class="empty">Корзина пока пустая.</div>';
-
-    total.textContent = "€0";
-
-    return;
-  }
-
-  let sum = 0;
-
-  container.innerHTML = "";
-
-  cart.forEach(function(item, index) {
-
-    sum += item.price;
-
-    const element =
-      document.createElement("div");
-
-    element.className = "order";
-
-    element.innerHTML = `
-      <div class="order-top">
-        <strong>${item.name}</strong>
-        <span>€${item.price}</span>
+    container.innerHTML = `
+      <div class="empty" style="grid-column:1/-1">
+        <div class="empty-icon">🔎</div>
+        <h2>Ничего не найдено</h2>
+        <p>Попробуйте изменить поиск</p>
       </div>
-
-      <button class="back"
-        onclick="removeFromCart(${index})">
-        Удалить
-      </button>
     `;
 
-    container.appendChild(element);
-  });
-
-  total.textContent = "€" + sum;
-}
-
-
-function removeFromCart(index) {
-
-  cart.splice(index, 1);
-
-  updateCart();
-}
-
-
-function checkout() {
-
-  if (cart.length === 0) {
-
-    alert("Корзина пустая.");
-
     return;
   }
 
-  const orderNumber =
-    "ML-" +
-    Math.floor(10000 + Math.random() * 90000);
+  container.innerHTML = list.map(p=>`
+
+    <div class="product">
+
+      <div class="product-image">
+        ${p.icon}
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-name">
+          ${p.name}
+        </div>
+
+        <div class="product-price">
+          ${money(p.price)}
+          <span class="old-price">${money(p.old)}</span>
+        </div>
+
+        <button class="buy" onclick="addToCart(${p.id})">
+          В корзину
+        </button>
+
+        <button
+          class="buy"
+          onclick="toggleFavorite(${p.id})"
+          style="margin-top:6px">
+          ${favorites.includes(p.id) ? "❤️ В избранном" : "♡ В избранное"}
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function renderHome(){
+  renderProducts("homeProducts");
+}
+
+
+function renderCatalog(){
+  renderProducts("catalogProducts");
+}
+
+
+function addToCart(id){
+
+  const existing = cart.find(item=>item.id === id);
+
+  if(existing){
+    existing.qty++;
+  }else{
+    cart.push({
+      id:id,
+      qty:1
+    });
+  }
+
+  saveCart();
+
+  toast("Товар добавлен в корзину 🛒");
+}
+
+
+function saveCart(){
+
+  localStorage.setItem(
+    "millenniumCart",
+    JSON.stringify(cart)
+  );
+
+  updateBadge();
+}
+
+
+function updateBadge(){
+
+  const count = cart.reduce(
+    (sum,item)=>sum + item.qty,
+    0
+  );
+
+  const badge = document.getElementById("cartBadge");
+
+  badge.textContent = count;
+  badge.style.display = count ? "flex" : "none";
+}
+
+
+function renderCart(){
+
+  const container = document.getElementById("cartContent");
+
+  if(!cart.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🛒</div>
+        <h2>Корзина пуста</h2>
+        <p>Добавьте товары из каталога</p>
+        <button class="primary" onclick="go('catalog')">
+          Перейти в каталог
+        </button>
+      </div>
+    `;
+
+    return;
+  }
 
   let total = 0;
 
-  cart.forEach(function(item) {
-    total += item.price;
-  });
+  container.innerHTML = cart.map(item=>{
 
-  orders.unshift({
-    number: orderNumber,
-    total: total,
-    status: "Принят"
-  });
+    const p = products.find(x=>x.id === item.id);
+
+    if(!p) return "";
+
+    const sum = p.price * item.qty;
+
+    total += sum;
+
+    return `
+
+      <div class="cart-item">
+
+        <div class="cart-image">
+          ${p.icon}
+        </div>
+
+        <div class="cart-info">
+
+          <div class="cart-name">
+            ${p.name}
+          </div>
+
+          <div class="cart-price">
+            ${money(sum)}
+          </div>
+
+          <div class="quantity">
+
+            <button onclick="changeQty(${p.id},-1)">
+              −
+            </button>
+
+            <b>${item.qty}</b>
+
+            <button onclick="changeQty(${p.id},1)">
+              +
+            </button>
+
+          </div>
+
+          <button
+            class="remove"
+            onclick="removeFromCart(${p.id})">
+            Удалить
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("") + `
+
+    <div class="total">
+
+      <div class="total-row">
+        <span>Товары</span>
+        <span>${money(total)}</span>
+      </div>
+
+      <div class="total-row">
+        <span>Доставка</span>
+        <span style="color:var(--green)">Бесплатно</span>
+      </div>
+
+      <div class="total-row total-main">
+        <span>Итого</span>
+        <span>${money(total)}</span>
+      </div>
+
+      <button class="primary" onclick="checkout()">
+        Оформить заказ
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+function changeQty(id,delta){
+
+  const item = cart.find(x=>x.id === id);
+
+  if(!item) return;
+
+  item.qty += delta;
+
+  if(item.qty <= 0){
+    cart = cart.filter(x=>x.id !== id);
+  }
+
+  saveCart();
+  renderCart();
+}
+
+
+function removeFromCart(id){
+
+  cart = cart.filter(x=>x.id !== id);
+
+  saveCart();
+  renderCart();
+
+  toast("Товар удалён");
+}
+
+
+function checkout(){
+
+  if(!cart.length){
+    toast("Корзина пуста");
+    return;
+  }
+
+  const total = cart.reduce((sum,item)=>{
+
+    const p = products.find(x=>x.id === item.id);
+
+    return sum + p.price * item.qty;
+
+  },0);
+
+  const order = {
+
+    number:
+      "MM-" +
+      Date.now().toString().slice(-6),
+
+    date:
+      new Date().toLocaleDateString("ru-RU"),
+
+    total:total,
+
+    status:"Принят",
+
+    items:cart.length
+
+  };
+
+  orders.unshift(order);
+
+  localStorage.setItem(
+    "millenniumOrders",
+    JSON.stringify(orders)
+  );
 
   cart = [];
 
-  updateCart();
+  saveCart();
 
-  updateOrders();
+  toast("Заказ успешно оформлен 🎉");
 
-  alert(
-    "Заказ " +
-    orderNumber +
-    " успешно оформлен!"
-  );
+  setTimeout(()=>{
+    go("orders");
+  },700);
 
-  showScreen("orders");
 }
 
 
-function updateOrders() {
+function renderOrders(){
 
   const container =
-    document.getElementById("ordersList");
+    document.getElementById("ordersContent");
 
-  if (orders.length === 0) {
+  if(!orders.length){
 
-    container.innerHTML =
-      '<div class="empty">У вас пока нет заказов.</div>';
+    container.innerHTML = `
 
-    return;
-  }
+      <div class="empty">
 
-  container.innerHTML = "";
+        <div class="empty-icon">📦</div>
 
-  orders.forEach(function(order) {
+        <h2>Заказов пока нет</h2>
 
-    const element =
-      document.createElement("div");
+        <p>
+          Как только вы оформите покупку,
+          она появится здесь.
+        </p>
 
-    element.className = "order";
+        <button class="primary" onclick="go('catalog')">
+          Перейти в каталог
+        </button>
 
-    element.innerHTML = `
-      <div class="order-top">
-        <strong>${order.number}</strong>
-        <span class="status">${order.status}</span>
       </div>
 
-      <p>Сумма заказа: €${order.total}</p>
-
-      <button class="back"
-        onclick="showScreen('tracking')">
-        Отследить
-      </button>
     `;
-
-    container.appendChild(element);
-  });
-}
-
-
-function trackOrder() {
-
-  const input =
-    document.getElementById("trackingNumber");
-
-  const result =
-    document.getElementById("trackingResult");
-
-  const number =
-    input.value.trim();
-
-  if (!number) {
-
-    result.textContent =
-      "Введите номер заказа.";
 
     return;
   }
 
-  result.innerHTML =
-    "✅ Заказ <b>" +
-    number +
-    "</b> найден.<br>" +
-    "Статус: заказ принят и готовится к отправке.";
+  container.innerHTML = orders.map(order=>`
+
+    <div class="order">
+
+      <div class="order-top">
+
+        <div>
+          <b>Заказ ${order.number}</b>
+          <div class="order-number">
+            ${order.date}
+          </div>
+        </div>
+
+        <div class="status">
+          ${order.status}
+        </div>
+
+      </div>
+
+      <div class="order-info">
+        Товаров: ${order.items}<br>
+        Сумма: <b>${money(order.total)}</b><br>
+        Доставка: бесплатно
+      </div>
+
+    </div>
+
+  `).join("");
+
 }
 
 
-function saveProfile() {
+function toggleFavorite(id){
 
-  const profile = {
+  if(favorites.includes(id)){
 
-    name:
-      document.getElementById("profileName").value,
+    favorites =
+      favorites.filter(x=>x !== id);
+
+    toast("Удалено из избранного");
+
+  }else{
+
+    favorites.push(id);
+
+    toast("Добавлено в избранное ❤️");
+
+  }
+
+  localStorage.setItem(
+    "millenniumFavorites",
+    JSON.stringify(favorites)
+  );
+
+  renderHome();
+  renderCatalog();
+  renderFavorites();
+
+}
+
+
+function renderFavorites(){
+
+  const container =
+    document.getElementById("favoritesContent");
+
+  const list =
+    products.filter(p=>favorites.includes(p.id));
+
+  if(!list.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">❤️</div>
+
+        <h2>Избранное пусто</h2>
+
+        <p>
+          Сохраняйте понравившиеся товары,
+          чтобы быстро найти их позже.
+        </p>
+
+        <button class="primary" onclick="go('catalog')">
+          Перейти в каталог
+        </button>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="section">
+      <div class="products">
+        ${list.map(p=>`
+
+          <div class="product">
+
+            <div class="product-image">
+              ${p.icon}
+            </div>
+
+            <div class="product-info">
+
+              <div class="product-name">
+                ${p.name}
+              </div>
+
+              <div class="product-price">
+                ${money(p.price)}
+              </div>
+
+              <button
+                class="buy"
+                onclick="addToCart(${p.id})">
+                В корзину
+              </button>
+
+              <button
+                class="buy"
+                onclick="toggleFavorite(${p.id})">
+                ❤️ Убрать
+              </button>
+
+            </div>
+
+          </div>
+
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+}
+
+
+function filterCategory(category){
+
+  currentCategory = category;
+
+  document.querySelectorAll(".category")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        btn.textContent.includes(category) ||
+        (category === "Все" &&
+         btn.textContent.includes("Все"))
+      );
+    });
+
+  renderHome();
+  renderCatalog();
+
+  if(
+    document.getElementById("catalog").classList.contains("active")
+  ){
+    go("catalog");
+  }
+
+}
+
+
+function searchProducts(){
+  renderCatalog();
+}
+
+
+function saveProfile(){
+
+  profile = {
+
+    fio:
+      document.getElementById("fio").value,
 
     phone:
-      document.getElementById("profilePhone").value,
+      document.getElementById("phone").value,
 
     email:
-      document.getElementById("profileEmail").value,
+      document.getElementById("email").value,
 
     address:
-      document.getElementById("profileAddress").value
+      document.getElementById("address").value
+
   };
 
   localStorage.setItem(
@@ -965,37 +1546,88 @@ function saveProfile() {
     JSON.stringify(profile)
   );
 
-  alert("Данные профиля сохранены ✅");
+  renderProfile();
+
+  toast("Данные сохранены ✓");
+
+  setTimeout(()=>{
+    go("profile");
+  },500);
+
 }
 
 
-function loadProfile() {
+function loadProfile(){
 
-  const saved =
-    localStorage.getItem("millenniumProfile");
+  document.getElementById("fio").value =
+    profile.fio || "";
 
-  if (!saved) return;
-
-  const profile =
-    JSON.parse(saved);
-
-  document.getElementById("profileName").value =
-    profile.name || "";
-
-  document.getElementById("profilePhone").value =
+  document.getElementById("phone").value =
     profile.phone || "";
 
-  document.getElementById("profileEmail").value =
+  document.getElementById("email").value =
     profile.email || "";
 
-  document.getElementById("profileAddress").value =
+  document.getElementById("address").value =
     profile.address || "";
+
 }
 
 
-loadProfile();
+function renderProfile(){
 
-updateCart();
+  const name =
+    document.getElementById("profileName");
+
+  const phone =
+    document.getElementById("profilePhone");
+
+  if(profile.fio){
+
+    name.textContent =
+      profile.fio;
+
+  }else{
+
+    name.textContent =
+      "Ваш профиль";
+
+  }
+
+  phone.textContent =
+    profile.phone ||
+    "Добавьте свои данные";
+
+}
+
+
+function toast(message){
+
+  const el =
+    document.getElementById("toast");
+
+  el.textContent = message;
+
+  el.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(()=>{
+      el.classList.remove("show");
+    },1800);
+
+}
+
+
+/* ЗАПУСК */
+
+renderHome();
+renderCatalog();
+renderProfile();
+renderOrders();
+renderFavorites();
+updateBadge();
 
 </script>
 
