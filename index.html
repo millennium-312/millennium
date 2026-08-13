@@ -7,560 +7,457 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- =========================
-       HEADER
-  ========================== -->
-  <header>
-    <div class="logo">
-      MILLENNIUM
-    </div>
-    <div class="header-actions">
-      <button class="header-button" onclick="openSearch()">
-        🔎
-      </button>
-      <a href="profile.html" class="header-button">
-        👤
-      </a>
-      <a href="cart.html" class="cart">
-        🛒
-        <span class="cart-count">0</span>
-      </a>
-    </div>
-  </header>
-  <!-- =========================
-       SEARCH
-  ========================== -->
-  <div class="search-box" id="searchBox">
-    <input
-      type="search"
-      id="searchInput"
-      placeholder="Поиск товаров..."
-      oninput="searchProducts()"
-    >
-    <button onclick="closeSearch()">
-      ✕
-    </button>
+<header class="header">
+  <a href="index.html" class="logo">MILLENNIUM</a>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="openSearch()" aria-label="Поиск">⌕</button>
+    <a href="profile.html" class="icon-btn" aria-label="Профиль">◯</a>
+    <a href="cart.html" class="cart-btn" aria-label="Корзина">
+      🛒
+      <span class="cart-count">0</span>
+    </a>
   </div>
-  <main>
-    <!-- =========================
-         LOCATION
-    ========================== -->
-    <section class="location">
-      <div>
-        <span class="location-label">
-          Доставка
-        </span>
-        <strong>
-          📍 Выберите город
-        </strong>
-      </div>
-      <button>
-        Изменить
-      </button>
-    </section>
-    <!-- =========================
-         HERO
-    ========================== -->
-    <section class="hero">
-      <div class="hero-content">
-        <span class="hero-label">
-          MILLENNIUM STORE
-        </span>
-        <h1>
-          Всё необходимое
-          <br>
-          в одном месте
-        </h1>
-        <p>
-          Техника, одежда, товары для дома
-          и многое другое с удобной доставкой.
-        </p>
-        <a href="catalog.html" class="button">
-          Перейти в каталог
+</header>
+<div class="search-panel" id="searchPanel">
+  <div class="search-inner">
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Поиск товаров..."
+      autocomplete="off"
+    >
+    <button onclick="closeSearch()">Закрыть</button>
+  </div>
+</div>
+<main>
+  <!-- LOCATION -->
+  <section class="location">
+    <div>
+      <span>Доставка</span>
+      <strong>📍 Выберите город</strong>
+    </div>
+    <button>Изменить</button>
+  </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">
+        MILLENNIUM STORE
+      </span>
+      <h1>
+        Покупки проще.<br>
+        Выбор лучше.
+      </h1>
+      <p>
+        Товары для жизни, дома и повседневных задач
+        с удобной доставкой и понятным оформлением.
+      </p>
+      <div class="hero-buttons">
+        <a href="catalog.html" class="primary-btn">
+          Открыть каталог
+        </a>
+        <a href="#offers" class="secondary-btn">
+          Смотреть акции
         </a>
       </div>
-    </section>
-    <!-- =========================
-         ADVERTISEMENT
-    ========================== -->
-    <section class="advertisement">
-      <div class="ad-content">
-        <span>
-          СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ
-        </span>
-        <h2>
-          Скидки до 40%
-        </h2>
-        <p>
-          Успейте воспользоваться
-          предложением.
-        </p>
-        <a href="catalog.html">
-          Смотреть акции →
-        </a>
-      </div>
-      <div class="ad-mark">
-        AD
-      </div>
-    </section>
-    <!-- =========================
-         CATEGORIES
-    ========================== -->
-    <section class="section">
-      <div class="section-head">
-        <h2>
-          Категории
-        </h2>
-        <a href="catalog.html">
-          Все →
-        </a>
-      </div>
-      <div class="categories">
-        <a href="catalog.html?category=electronics"
-           class="category">
-          <span>📱</span>
-          <strong>
-            Электроника
-          </strong>
-        </a>
-        <a href="catalog.html?category=clothes"
-           class="category">
-          <span>👕</span>
-          <strong>
-            Одежда
-          </strong>
-        </a>
-        <a href="catalog.html?category=home"
-           class="category">
-          <span>🏠</span>
-          <strong>
-            Для дома
-          </strong>
-        </a>
-        <a href="catalog.html?category=beauty"
-           class="category">
-          <span>✨</span>
-          <strong>
-            Красота
-          </strong>
-        </a>
-        <a href="catalog.html?category=accessories"
-           class="category">
-          <span>🎒</span>
-          <strong>
-            Аксессуары
-          </strong>
-        </a>
-        <a href="catalog.html?category=sport"
-           class="category">
-          <span>⚽</span>
-          <strong>
-            Спорт
-          </strong>
-        </a>
-      </div>
-    </section>
-    <!-- =========================
-         FLASH SALE
-    ========================== -->
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <span class="small-label">
-            СЕГОДНЯ
-          </span>
-          <h2>
-            Выгодные предложения
-          </h2>
-        </div>
-        <a href="catalog.html">
-          Все →
-        </a>
-      </div>
-      <div class="products">
-        <!-- PRODUCT 1 -->
-        <article class="product-card">
-          <div class="product-image">
-            🎧
-            <button class="favorite">
-              ♡
-            </button>
-            <span class="discount">
-              -25%
-            </span>
-          </div>
-          <div class="product-info">
-            <h3>
-              Беспроводные наушники
-            </h3>
-            <p class="rating">
-              ★ 4.8
-            </p>
-            <div class="product-price">
-              <strong>
-                1 990 ₽
-              </strong>
-              <del>
-                2 650 ₽
-              </del>
-            </div>
-            <button
-              class="buy-button"
-              onclick="addToCart('Беспроводные наушники', 1990)"
-            >
-              В корзину
-            </button>
-          </div>
-        </article>
-        <!-- PRODUCT 2 -->
-        <article class="product-card">
-          <div class="product-image">
-            ⌚
-            <button class="favorite">
-              ♡
-            </button>
-            <span class="discount">
-              -18%
-            </span>
-          </div>
-          <div class="product-info">
-            <h3>
-              Умные часы
-            </h3>
-            <p class="rating">
-              ★ 4.7
-            </p>
-            <div class="product-price">
-              <strong>
-                2 990 ₽
-              </strong>
-              <del>
-                3 650 ₽
-              </del>
-            </div>
-            <button
-              class="buy-button"
-              onclick="addToCart('Умные часы', 2990)"
-            >
-              В корзину
-            </button>
-          </div>
-        </article>
-        <!-- PRODUCT 3 -->
-        <article class="product-card">
-          <div class="product-image">
-            🎒
-            <button class="favorite">
-              ♡
-            </button>
-          </div>
-          <div class="product-info">
-            <h3>
-              Городской рюкзак
-            </h3>
-            <p class="rating">
-              ★ 4.9
-            </p>
-            <div class="product-price">
-              <strong>
-                2 490 ₽
-              </strong>
-            </div>
-            <button
-              class="buy-button"
-              onclick="addToCart('Городской рюкзак', 2490)"
-            >
-              В корзину
-            </button>
-          </div>
-        </article>
-        <!-- PRODUCT 4 -->
-        <article class="product-card">
-          <div class="product-image">
-            💡
-            <button class="favorite">
-              ♡
-            </button>
-          </div>
-          <div class="product-info">
-            <h3>
-              Настольная лампа
-            </h3>
-            <p class="rating">
-              ★ 4.6
-            </p>
-            <div class="product-price">
-              <strong>
-                1 490 ₽
-              </strong>
-            </div>
-            <button
-              class="buy-button"
-              onclick="addToCart('Настольная лампа', 1490)"
-            >
-              В корзину
-            </button>
-          </div>
-        </article>
-      </div>
-    </section>
-    <!-- =========================
-         DELIVERY
-    ========================== -->
-    <section class="delivery-card">
-      <div class="delivery-icon">
-        📦
-      </div>
-      <div>
-        <span>
-          ДОСТАВКА
-        </span>
-        <h2>
-          Получите заказ быстро
-        </h2>
-        <p>
-          Ориентировочно через
-          <strong>2–4 дня</strong>
-        </p>
-      </div>
-    </section>
-    <!-- =========================
-         PAYMENT
-    ========================== -->
-    <section class="section">
-      <div class="section-head">
-        <h2>
-          Удобная оплата
-        </h2>
-      </div>
-      <div class="payment-methods">
-        <div class="payment-card">
-          <span>
-            💳
-          </span>
-          <strong>
-            Банковская карта
-          </strong>
-          <p>
-            Visa / Mastercard
-            и другие карты.
-          </p>
-        </div>
-        <div class="payment-card">
-          <span>
-            🏦
-          </span>
-          <strong>
-            Банк
-          </strong>
-          <p>
-            Оплата через
-            банковские сервисы КР.
-          </p>
-        </div>
-        <div class="payment-card">
-          <span>
-            💰
-          </span>
-          <strong>
-            При получении
-          </strong>
-          <p>
-            Если способ доступен
-            для выбранной доставки.
-          </p>
-        </div>
-      </div>
-    </section>
-    <!-- =========================
-         ORDER INFO
-    ========================== -->
-    <section class="order-preview">
-      <div>
-        <span>
-          ОФОРМЛЕНИЕ ЗАКАЗА
-        </span>
-        <h2>
-          Всё под контролем
-        </h2>
-        <p>
-          Адрес → доставка → способ оплаты
-          → подтверждение заказа.
-        </p>
-      </div>
-      <a href="checkout.html" class="button">
-        Оформить заказ
+    </div>
+  </section>
+  <!-- ADVERTISEMENT -->
+  <section class="advertisement">
+    <div>
+      <span class="eyebrow">СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ</span>
+      <h2>
+        Выгодные цены<br>
+        каждый день
+      </h2>
+      <p>
+        Скидки на популярные товары
+        и специальные предложения.
+      </p>
+      <a href="catalog.html">
+        Смотреть предложения →
       </a>
-    </section>
-    <!-- =========================
-         PROMO
-    ========================== -->
-    <section class="promo">
-      <span>
+    </div>
+    <div class="ad-badge">
+      SALE
+    </div>
+  </section>
+  <!-- CATEGORIES -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">КАТАЛОГ</span>
+        <h2>Категории</h2>
+      </div>
+      <a href="catalog.html">Все →</a>
+    </div>
+    <div class="categories">
+      <a href="catalog.html?category=electronics" class="category">
+        <span>📱</span>
+        <strong>Электроника</strong>
+        <small>Гаджеты и техника</small>
+      </a>
+      <a href="catalog.html?category=clothes" class="category">
+        <span>👕</span>
+        <strong>Одежда</strong>
+        <small>Для каждого дня</small>
+      </a>
+      <a href="catalog.html?category=home" class="category">
+        <span>🏠</span>
+        <strong>Для дома</strong>
+        <small>Уют и комфорт</small>
+      </a>
+      <a href="catalog.html?category=beauty" class="category">
+        <span>✨</span>
+        <strong>Красота</strong>
+        <small>Уход за собой</small>
+      </a>
+      <a href="catalog.html?category=accessories" class="category">
+        <span>🎒</span>
+        <strong>Аксессуары</strong>
+        <small>Полезные мелочи</small>
+      </a>
+      <a href="catalog.html?category=sport" class="category">
+        <span>⚽</span>
+        <strong>Спорт</strong>
+        <small>Активный образ жизни</small>
+      </a>
+    </div>
+  </section>
+  <!-- OFFERS -->
+  <section class="section" id="offers">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">ТОП ТОВАРЫ</span>
+        <h2>Популярное сейчас</h2>
+      </div>
+      <a href="catalog.html">Все товары →</a>
+    </div>
+    <div class="products">
+      <article class="product-card">
+        <div class="product-image product-image-1">
+          🎧
+          <button class="favorite">♡</button>
+          <span class="discount">−25%</span>
+        </div>
+        <div class="product-info">
+          <span class="product-category">
+            Электроника
+          </span>
+          <h3>
+            Беспроводные наушники
+          </h3>
+          <div class="rating">
+            ★ 4.8
+          </div>
+          <div class="price-row">
+            <strong>1 990 ₽</strong>
+            <del>2 650 ₽</del>
+          </div>
+          <button
+            class="buy-button"
+            onclick="addToCart('Беспроводные наушники', 1990)"
+          >
+            В корзину
+          </button>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-image product-image-2">
+          ⌚
+          <button class="favorite">♡</button>
+          <span class="discount">−18%</span>
+        </div>
+        <div class="product-info">
+          <span class="product-category">
+            Электроника
+          </span>
+          <h3>
+            Умные часы
+          </h3>
+          <div class="rating">
+            ★ 4.7
+          </div>
+          <div class="price-row">
+            <strong>2 990 ₽</strong>
+            <del>3 650 ₽</del>
+          </div>
+          <button
+            class="buy-button"
+            onclick="addToCart('Умные часы', 2990)"
+          >
+            В корзину
+          </button>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-image product-image-3">
+          🎒
+          <button class="favorite">♡</button>
+        </div>
+        <div class="product-info">
+          <span class="product-category">
+            Аксессуары
+          </span>
+          <h3>
+            Городской рюкзак
+          </h3>
+          <div class="rating">
+            ★ 4.9
+          </div>
+          <div class="price-row">
+            <strong>2 490 ₽</strong>
+          </div>
+          <button
+            class="buy-button"
+            onclick="addToCart('Городской рюкзак', 2490)"
+          >
+            В корзину
+          </button>
+        </div>
+      </article>
+      <article class="product-card">
+        <div class="product-image product-image-4">
+          💡
+          <button class="favorite">♡</button>
+        </div>
+        <div class="product-info">
+          <span class="product-category">
+            Для дома
+          </span>
+          <h3>
+            Настольная лампа
+          </h3>
+          <div class="rating">
+            ★ 4.6
+          </div>
+          <div class="price-row">
+            <strong>1 490 ₽</strong>
+          </div>
+          <button
+            class="buy-button"
+            onclick="addToCart('Настольная лампа', 1490)"
+          >
+            В корзину
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+  <!-- DELIVERY -->
+  <section class="info-grid">
+    <div class="info-card">
+      <span class="info-icon">📦</span>
+      <div>
+        <span class="eyebrow">ДОСТАВКА</span>
+        <h3>
+          Быстро и удобно
+        </h3>
+        <p>
+          Выберите удобный способ
+          получения заказа.
+        </p>
+      </div>
+    </div>
+    <div class="info-card">
+      <span class="info-icon">🕐</span>
+      <div>
+        <span class="eyebrow">СРОК</span>
+        <h3>
+          2–4 дня
+        </h3>
+        <p>
+          Ориентировочная дата
+          будет показана при заказе.
+        </p>
+      </div>
+    </div>
+    <div class="info-card">
+      <span class="info-icon">🔒</span>
+      <div>
+        <span class="eyebrow">ОПЛАТА</span>
+        <h3>
+          Безопасно
+        </h3>
+        <p>
+          Картой или через доступные
+          банковские сервисы.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- PAYMENT -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">ОПЛАТА</span>
+        <h2>Как можно оплатить</h2>
+      </div>
+    </div>
+    <div class="payment-grid">
+      <div class="payment-card">
+        <span>💳</span>
+        <h3>Банковская карта</h3>
+        <p>
+          Оплата картой при оформлении
+          заказа.
+        </p>
+      </div>
+      <div class="payment-card">
+        <span>🏦</span>
+        <h3>Банк Кыргызстана</h3>
+        <p>
+          Подключим банковские способы
+          оплаты КР.
+        </p>
+      </div>
+      <div class="payment-card">
+        <span>💰</span>
+        <h3>При получении</h3>
+        <p>
+          Если данный способ доступен
+          для выбранной доставки.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- CHECKOUT -->
+  <section class="checkout-banner">
+    <div>
+      <span class="eyebrow">
+        ОФОРМЛЕНИЕ
+      </span>
+      <h2>
+        Заказ под контролем
+      </h2>
+      <p>
+        Адрес → доставка → оплата →
+        подтверждение → получение.
+      </p>
+    </div>
+    <a href="checkout.html" class="primary-btn">
+      Оформить заказ
+    </a>
+  </section>
+  <!-- PROMO -->
+  <section class="promo-card">
+    <div>
+      <span class="eyebrow">
         ПРОМОКОД
       </span>
       <h2>
         Скидка на первый заказ
       </h2>
       <p>
-        Используйте промокод
-        при оформлении заказа.
+        Используйте код при оформлении.
       </p>
-      <div class="promo-code">
-        MILLENNIUM
-      </div>
-    </section>
-    <!-- =========================
-         SUPPORT
-    ========================== -->
-    <section class="section">
-      <div class="support-card">
-        <div>
-          <span>
-            НУЖНА ПОМОЩЬ?
-          </span>
-          <h2>
-            Мы рядом
-          </h2>
-          <p>
-            Вопросы по заказу,
-            оплате или доставке.
-          </p>
-        </div>
-        <a href="support.html">
-          Поддержка →
-        </a>
-      </div>
-    </section>
-  </main>
-  <!-- =========================
-       BOTTOM NAVIGATION
-  ========================== -->
-  <nav class="bottom-nav">
-    <a
-      href="index.html"
-      class="active"
-    >
-      <span>⌂</span>
-      <small>
-        Главная
-      </small>
-    </a>
-    <a href="catalog.html">
-      <span>⌕</span>
-      <small>
-        Каталог
-      </small>
-    </a>
-    <a href="cart.html">
-      <span class="nav-cart">
-        🛒
-        <b class="cart-count">0</b>
-      </span>
-      <small>
-        Корзина
-      </small>
-    </a>
-    <a href="profile.html">
-      <span>
-        ◯
-      </span>
-      <small>
-        Профиль
-      </small>
-    </a>
-  </nav>
-  <!-- =========================
-       FOOTER
-  ========================== -->
-  <footer>
-    <strong>
-      MILLENNIUM
-    </strong>
-    <p>
-      Современный магазин
-      для повседневных покупок.
-    </p>
-    <div class="footer-links">
-      <a href="about.html">
-        О магазине
-      </a>
-      <a href="delivery.html">
-        Доставка
-      </a>
-      <a href="payment.html">
-        Оплата
-      </a>
-      <a href="support.html">
-        Поддержка
-      </a>
-      <a href="settings.html">
-        Настройки
-      </a>
     </div>
-    <p>
-      © 2026 Millennium
-    </p>
-  </footer>
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
-  <script>
-    /* SEARCH */
-    function openSearch() {
-      const box = document.getElementById("searchBox");
-      box.classList.add("active");
-      document.getElementById("searchInput").focus();
-    }
-    function closeSearch() {
-      const box = document.getElementById("searchBox");
-      box.classList.remove("active");
-      document.getElementById("searchInput").value = "";
-    }
-    function searchProducts() {
-      const input =
-        document.getElementById("searchInput");
-      const value =
-        input.value.toLowerCase();
-      console.log("Поиск:", value);
-      /*
-        Позже здесь подключим
-        настоящий поиск товаров.
-      */
-    }
-    /* CART */
-    function addToCart(name, price) {
-      let cart =
-        JSON.parse(
-          localStorage.getItem("millenniumCart")
-        ) || [];
-      cart.push({
-        name: name,
-        price: price,
-        quantity: 1
-      });
-      localStorage.setItem(
-        "millenniumCart",
-        JSON.stringify(cart)
-      );
-      updateCartCount();
-      alert(
-        name + " добавлен в корзину"
-      );
-    }
-    function updateCartCount() {
-      let cart =
-        JSON.parse(
-          localStorage.getItem("millenniumCart")
-        ) || [];
-      const counters =
-        document.querySelectorAll(".cart-count");
-      counters.forEach(function(counter) {
-        counter.textContent = cart.length;
-      });
-    }
-    /* START */
-    updateCartCount();
-  </script>
+    <div class="promo-code">
+      MILLENNIUM
+    </div>
+  </section>
+  <!-- SUPPORT -->
+  <section class="support">
+    <div>
+      <span class="eyebrow">
+        ПОДДЕРЖКА
+      </span>
+      <h2>
+        Нужна помощь?
+      </h2>
+      <p>
+        Поможем с заказом, оплатой,
+        доставкой и возвратом.
+      </p>
+    </div>
+    <a href="support.html" class="secondary-btn">
+      Написать в поддержку
+    </a>
+  </section>
+</main>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="index.html" class="active">
+    <span>⌂</span>
+    <small>Главная</small>
+  </a>
+  <a href="catalog.html">
+    <span>⌕</span>
+    <small>Каталог</small>
+  </a>
+  <a href="cart.html" class="nav-cart-link">
+    <span>
+      🛒
+      <b class="cart-count">0</b>
+    </span>
+    <small>Корзина</small>
+  </a>
+  <a href="profile.html">
+    <span>◯</span>
+    <small>Профиль</small>
+  </a>
+</nav>
+<!-- FOOTER -->
+<footer>
+  <strong>MILLENNIUM</strong>
+  <p>
+    Современный магазин
+    для повседневных покупок.
+  </p>
+  <div class="footer-links">
+    <a href="about.html">О магазине</a>
+    <a href="delivery.html">Доставка</a>
+    <a href="payment.html">Оплата</a>
+    <a href="support.html">Поддержка</a>
+    <a href="settings.html">Настройки</a>
+  </div>
+  <p>
+    © 2026 Millennium
+  </p>
+</footer>
+<script>
+function openSearch() {
+  document
+    .getElementById("searchPanel")
+    .classList.add("active");
+  document
+    .getElementById("searchInput")
+    .focus();
+}
+function closeSearch() {
+  document
+    .getElementById("searchPanel")
+    .classList.remove("active");
+}
+function addToCart(name, price) {
+  let cart =
+    JSON.parse(
+      localStorage.getItem("millenniumCart")
+    ) || [];
+  cart.push({
+    name: name,
+    price: price,
+    quantity: 1
+  });
+  localStorage.setItem(
+    "millenniumCart",
+    JSON.stringify(cart)
+  );
+  updateCartCount();
+  alert("Товар добавлен в корзину");
+}
+function updateCartCount() {
+  const cart =
+    JSON.parse(
+      localStorage.getItem("millenniumCart")
+    ) || [];
+  document
+    .querySelectorAll(".cart-count")
+    .forEach(function(element) {
+      element.textContent = cart.length;
+    });
+}
+updateCartCount();
+</script>
 </body>
 </html>
